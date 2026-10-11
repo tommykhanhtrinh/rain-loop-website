@@ -78,3 +78,8 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 - QA riêng sáu trang ở 1440px/820px/360px: không tràn ngang. Đã sửa tràn do xoay dải ticker và đường đồng mức trên mục vật liệu; dùng clip-path cho dải chéo, giữ hình trang trí trong phạm vi section.
 - Đã xem ảnh chụp trang chủ/khối quy trình/trang nghiên cứu trên desktop và 360px. Bộ kiểm thử phát hiện một tham chiếu ring cũ đã bỏ; đã chuyển kiểm tra fallback sang lớp phong cảnh thực tế. Kiểm thử cuối chạy sau các sửa đổi.
 - Canvas chỉ trang trí, không mô phỏng dữ liệu đo; phong cảnh vẫn ghi nhãn AI, chưa có video thiên nhiên thật. Không đo FPS trên thiết bị thật; chưa kiểm thử Safari/iOS thật.
+
+
+## Thay ảnh Cảm hứng chính — 11/10/2026
+
+Build thành công; 8 kiểm thử liên quan trên bốn viewport đạt. QA riêng 1440px và 360px: ảnh 1372×768 hiển thị đủ, không tràn ngang/không lỗi JavaScript; bấm mở đúng PNG gốc, đóng lightbox trả focus. Đã xem ảnh chụp hai bố cục.

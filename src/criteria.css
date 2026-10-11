@@ -57,3 +57,10 @@
 @media(max-width:560px){.research-card .card-face,.research-cards[data-layout=compact] .card-face{min-height:900px}.research-card .card-brand{top:76px;left:24px;gap:9px}.card-brand img{width:105px;height:36px}.card-brand>span{font-size:.56rem}.product-card-art{inset:130px 18px auto;height:250px;border-radius:15px}.research-card .card-content,.research-cards[data-layout=compact] .card-content{margin-top:396px;padding:23px}.research-card .card-content h3{font-size:2rem}.research-card .card-content p.card-ecosystem{font-size:.79rem}.research-card .card-back,.research-cards[data-layout=compact] .card-back{padding:23px}.research-card .card-facts{gap:22px 14px}.research-card .card-facts p{font-size:.84rem}.card-macro{height:80px}.macro-preview img{height:220px}.decision-grid,.submission-grid,.brand-story{grid-template-columns:1fr}.brand-story{padding:25px}.brand-story h2{font-size:1.9rem}.demo-agenda{grid-template-columns:1fr}.swatches{gap:14px}.swatches>div{min-width:66px}.swatches i{width:50px;height:50px}.card-source-line{font-size:.63rem}.detail-drawing-actions .button{width:100%}}
 
 .card-art-link{display:block;border:0;border-bottom:1px solid #8fac9a;background:none;color:#d7eb8c;padding:8px 0;min-height:44px;font-size:.72rem;margin-bottom:15px}
+
+/* Uploaded reference replaces the island only in the research feature. */
+.research-sketch{background:#fff;border:1px solid var(--line)}
+.research-art-button{display:block;position:relative;width:100%;border:0;padding:0;background:transparent;cursor:zoom-in;text-align:left}
+.research-sketch .research-art-button img{width:100%;height:auto;padding:12px 12px 44px;object-fit:contain}
+.research-sketch .image-label{left:14px;bottom:12px;right:14px;width:fit-content;max-width:calc(100% - 28px);font-size:.49rem;line-height:1.7;background:#123f35;color:#f7fafc;border-radius:8px}
+@media(max-width:560px){.research-sketch .research-art-button img{padding:8px 8px 42px}.research-sketch .image-label{font-size:.42rem;left:10px;right:10px;max-width:calc(100% - 20px)}}

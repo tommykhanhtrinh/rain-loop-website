@@ -82,3 +82,8 @@ Chuyển trang dùng ba dải màu liên tiếp, tiêu đề đích và hiệu �
 Phong cảnh RainLoop hiện có vẫn là minh họa AI. Hiệu ứng phong cảnh phóng/chuyển chậm, lớp sương CSS, hạt sáng và gợn nước canvas là chuyển động trang trí viết bằng mã, không phải video thiên nhiên thật hay mô phỏng khoa học. Không tạo thêm ảnh và không thay đổi file ảnh gốc. Canvas giới hạn mật độ điểm ảnh 1.5, khoảng 30 fps, dừng khi hero ngoài màn hình, tab ẩn hoặc chuyển động bị tắt.
 
 Chữ chạy dùng HTML/CSS; phần lặp là trang trí ẩn với trình đọc màn hình, có bản nội dung tĩnh. Tiêu đề giữ nguyên chữ Unicode tiếng Việt, chỉ tách từ để hoạt ảnh; không vẽ chữ lên canvas. Chữ xuất hiện lại khi mục trở vào màn hình ở cả hai hướng cuộn. Nút chuyển động và prefers-reduced-motion dừng toàn bộ hiệu ứng mới. Các vùng nền thêm đường đồng mức và vòng nước, giữ nội dung nghiên cứu nguyên vẹn.
+
+
+## Thay ảnh tại Cảm hứng chính — 11/10/2026
+
+Theo ảnh vị trí `image(20261011-123010).png`, chỉ thay minh họa khối đất nổi tại research feature ở trang Nghiên cứu. Ảnh mới: `image(20261011-123033).png`, do nhóm gửi; giữ nguyên hình và chú thích. Lưu PNG gốc tại `public/assets/originals/rainloop-ecosystem-sketch.png`, bản WebP tại `public/assets/rainloop-ecosystem-sketch.webp`. Không crop/chỉnh cấu trúc; chỉ đổi định dạng cho hiển thị. Bấm ảnh để mở PNG gốc trong lightbox; ghi nhãn phác thảo nhóm cung cấp, không phải mô hình đã kiểm chứng.
