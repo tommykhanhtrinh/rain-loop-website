@@ -1,0 +1,237 @@
+import '@fontsource/be-vietnam-pro/latin-400.css';
+import '@fontsource/be-vietnam-pro/vietnamese-400.css';
+import '@fontsource/be-vietnam-pro/latin-500.css';
+import '@fontsource/be-vietnam-pro/vietnamese-500.css';
+import '@fontsource/be-vietnam-pro/latin-600.css';
+import '@fontsource/be-vietnam-pro/vietnamese-600.css';
+import './style.css';
+import { research, hotspots, drawings } from './content.js';
+
+const $ = (selector, root=document) => root.querySelector(selector);
+const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+const escapeHTML = value => String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const memory = new Map();
+const storage = {
+  get(key) { try { return sessionStorage.getItem(key) ?? memory.get(key); } catch { return memory.get(key); } },
+  set(key,value) { memory.set(key,value); try { sessionStorage.setItem(key,value); } catch {} },
+  remove(key) { memory.delete(key); try { sessionStorage.removeItem(key); } catch {} }
+};
+function parseState(key) { try { return JSON.parse(storage.get(key)||'null'); } catch { storage.remove(key); return null; } }
+const dialogTriggers = new WeakMap();
+let menuScroll = 0;
+function openDialog(dialog, trigger) {
+  dialogTriggers.set(dialog, trigger || document.activeElement);
+  dialog.showModal();
+  document.body.classList.add('modal-open');
+}
+$$('dialog').forEach(dialog=>{
+  dialog.addEventListener('close',()=>{
+    if(!$('dialog[open]')) document.body.classList.remove('modal-open');
+    dialogTriggers.get(dialog)?.focus({preventScroll:true});
+    if(dialog.id==='mobile-menu'){
+      $('.menu-toggle').setAttribute('aria-expanded','false');
+      if(!presentation)requestAnimationFrame(()=>scrollTo({top:menuScroll,behavior:'instant'}));
+    }
+  });
+  dialog.addEventListener('click',event=>{
+    if(event.target!==dialog) return;
+    const r=dialog.getBoundingClientRect();
+    if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) dialog.close();
+  });
+});
+$$('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
+$('.menu-toggle')?.addEventListener('click',event=>{
+  menuScroll=scrollY;
+  event.currentTarget.setAttribute('aria-expanded','true');
+  openDialog($('#mobile-menu'),event.currentTarget);
+});
+$$('#mobile-menu a').forEach(a=>a.addEventListener('click',()=>$('#mobile-menu').close()));
+matchMedia('(min-width: 801px)').addEventListener('change',event=>{
+  if(event.matches && $('#mobile-menu').open) $('#mobile-menu').close();
+});
+
+if(!reduced.matches) document.documentElement.classList.add('js-motion');
+const revealObserver = new IntersectionObserver(entries=>entries.forEach(entry=>{
+ if(entry.isIntersecting){entry.target.classList.add('in-view');revealObserver.unobserve(entry.target);}
+}),{threshold:.08});
+$$('[data-reveal]').forEach(element=>revealObserver.observe(element));
+
+const video=$('.hero-art video');
+let motionPaused=storage.get('rainloop-motion-paused')==='true';
+const motionButton=$('.motion-toggle');
+function syncMotion(){
+ const stopped=motionPaused||reduced.matches;
+ document.documentElement.classList.toggle('motion-paused',stopped);
+ if(motionButton){motionButton.setAttribute('aria-pressed',String(stopped));motionButton.textContent=stopped?'Bật chuyển động ▷':'Tạm dừng chuyển động Ⅱ';if(reduced.matches)motionButton.textContent='Đã giảm chuyển động';motionButton.disabled=reduced.matches;}
+ if(video){if(stopped)video.pause();else if(video.dataset.visible==='true')playVideo();}
+}
+function playVideo(){
+ if(!video||motionPaused||reduced.matches||document.hidden)return;
+ if(!video.getAttribute('src'))video.src=video.dataset.src;
+ video.play().catch(()=>{video.hidden=true;});
+}
+motionButton?.addEventListener('click',()=>{motionPaused=!motionPaused;storage.set('rainloop-motion-paused',String(motionPaused));syncMotion();});
+reduced.addEventListener('change',syncMotion);
+if(video){
+ video.addEventListener('error',()=>{video.hidden=true;});
+ video.addEventListener('playing',()=>{video.hidden=false;});
+ new IntersectionObserver(entries=>entries.forEach(entry=>{video.dataset.visible=String(entry.isIntersecting);if(entry.isIntersecting)playVideo();else video.pause();}),{threshold:.1}).observe(video);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(video.dataset.visible==='true')playVideo();});
+}
+syncMotion();
+
+$$('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
+ const selected=button.dataset.filter;
+ $$('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+ let count=0;
+ $$('.research-card').forEach(card=>{card.hidden=selected!=='all'&&card.dataset.status!==selected;if(!card.hidden)count++;});
+ $('.filter-empty').hidden=count!==0;
+ $('.research-context').hidden=count===0;
+}));
+$$('[data-flip]').forEach(button=>button.addEventListener('click',()=>{
+ const card=button.closest('.research-card');
+ const front=$('.card-front',card),back=$('.card-back',card);
+ const showBack=!front.hidden;
+ front.hidden=showBack;back.hidden=!showBack;
+ $('[data-flip]',front).setAttribute('aria-expanded',String(showBack));
+ const target=showBack?$('[data-research-detail]',back):$('[data-flip]',front);
+ target.focus({preventScroll:true});
+}));
+$$('[data-research-detail]').forEach(button=>button.addEventListener('click',()=>{
+ const item=research.find(r=>r.id===button.dataset.researchDetail);if(!item)return;
+ $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}</div><a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem sơ đồ minh họa ↗</a>`;
+ openDialog($('#detail-dialog'),button);
+}));
+
+function selectHotspot(id,{focus=false,scroll=false}={}){
+ const h=hotspots.find(item=>item.id===id);if(!h||!$('#hotspot-title'))return;
+ $$('[data-hotspot]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.hotspot===id)));
+ $('#hotspot-number').textContent=`BỘ PHẬN ${h.n}`;
+ $('#hotspot-title').textContent=h.name;
+ $('#hotspot-text').textContent=h.text;
+ if(focus)$('#hotspot-detail').focus({preventScroll:true});
+ if(scroll)$('#co-che').scrollIntoView({behavior:'instant',block:'start'});
+}
+$$('[data-hotspot]').forEach(button=>button.addEventListener('click',()=>{
+ const id=button.dataset.hotspot;
+ history.replaceState(null,'',`#${id}`);
+ selectHotspot(id,{focus:true});
+}));
+function readHotspotHash(){const id=decodeURIComponent(location.hash.slice(1));if(hotspots.some(h=>h.id===id))selectHotspot(id,{focus:true,scroll:true});}
+if($('#hotspot-title')){
+ selectHotspot(hotspots[0].id);
+ requestAnimationFrame(readHotspotHash);
+ window.addEventListener('hashchange',readHotspotHash);
+}
+$('[data-flow-toggle]')?.addEventListener('click',event=>{
+ const button=event.currentTarget;const running=button.getAttribute('aria-pressed')!=='true';
+ button.setAttribute('aria-pressed',String(running));button.textContent=running?'Tạm dừng dòng nước Ⅱ':'Chạy dòng nước ▷';
+ $('.interactive').classList.toggle('flow-paused',!running);
+});
+if(reduced.matches&&$('[data-flow-toggle]')){$('[data-flow-toggle]').textContent='Đã giảm chuyển động';$('[data-flow-toggle]').setAttribute('aria-pressed','false');$('[data-flow-toggle]').disabled=true;}
+
+function selectMaterialTab(button){
+ $$('[data-material-tab]').forEach(tab=>{const active=tab===button;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;$(`#panel-${tab.dataset.materialTab}`).hidden=!active;});
+}
+$$('[data-material-tab]').forEach(button=>{
+ button.addEventListener('click',()=>selectMaterialTab(button));
+ button.addEventListener('keydown',event=>{
+  const tabs=$$('[data-material-tab]');let index=tabs.indexOf(button);
+  if(event.key==='ArrowRight')index=(index+1)%tabs.length;else if(event.key==='ArrowLeft')index=(index-1+tabs.length)%tabs.length;else if(event.key==='Home')index=0;else if(event.key==='End')index=tabs.length-1;else return;
+  event.preventDefault();selectMaterialTab(tabs[index]);tabs[index].focus();
+ });
+});
+
+// The viewer accepts supplied originals only; absent drawings remain informative placeholders.
+const gallery=$('#gallery-dialog'),viewport=$('.gallery-viewport'),galleryImage=$('img',viewport);
+let galleryItems=[],galleryIndex=0,zoom=1,panX=0,panY=0,pointer=null;
+function paintImage(){
+ const boundX=Math.max(0,(galleryImage.clientWidth*zoom-viewport.clientWidth)/2);
+ const boundY=Math.max(0,(galleryImage.clientHeight*zoom-viewport.clientHeight)/2);
+ panX=Math.max(-boundX,Math.min(boundX,panX));panY=Math.max(-boundY,Math.min(boundY,panY));
+ galleryImage.style.transform=`translate(${panX}px,${panY}px) scale(${zoom})`;
+ $('#zoom-level').textContent=`${Math.round(zoom*100)}%`;
+ $('[data-zoom-out]').disabled=zoom<=1;$('[data-zoom-in]').disabled=zoom>=4;
+}
+function showImage(index){
+ galleryIndex=(index+galleryItems.length)%galleryItems.length;
+ const item=galleryItems[galleryIndex];
+ galleryImage.src=item.src;galleryImage.alt=item.title;$('#gallery-title').textContent=item.title;
+ zoom=1;panX=0;panY=0;paintImage();
+ $('[data-gallery-prev]').disabled=galleryItems.length<2;$('[data-gallery-next]').disabled=galleryItems.length<2;
+}
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-gallery], [data-gallery-src]');if(!button)return;
+ galleryItems=drawings.filter(d=>d.src).map(d=>({id:d.id,src:d.src,title:d.title}));
+ if(button.dataset.gallerySrc){
+  galleryItems=$$('[data-gallery-src]').map((b,i)=>({id:`supplied-${i}`,src:b.dataset.gallerySrc,title:b.dataset.galleryTitle||'Ảnh thiết kế'}));
+  galleryIndex=$$('[data-gallery-src]').indexOf(button);
+ }else galleryIndex=galleryItems.findIndex(d=>d.id===button.dataset.gallery);
+ if(galleryIndex<0)return;
+ openDialog(gallery,button);showImage(galleryIndex);
+});
+galleryImage.addEventListener('load',paintImage);
+$('[data-zoom-in]').addEventListener('click',()=>{zoom=Math.min(4,zoom+.5);paintImage();});
+$('[data-zoom-out]').addEventListener('click',()=>{zoom=Math.max(1,zoom-.5);paintImage();});
+$('[data-gallery-prev]').addEventListener('click',()=>showImage(galleryIndex-1));
+$('[data-gallery-next]').addEventListener('click',()=>showImage(galleryIndex+1));
+viewport.addEventListener('pointerdown',event=>{pointer={id:event.pointerId,x:event.clientX,y:event.clientY};viewport.setPointerCapture(event.pointerId);});
+viewport.addEventListener('pointermove',event=>{if(!pointer||pointer.id!==event.pointerId)return;panX+=event.clientX-pointer.x;panY+=event.clientY-pointer.y;pointer.x=event.clientX;pointer.y=event.clientY;paintImage();});
+for(const name of ['pointerup','pointercancel','lostpointercapture'])viewport.addEventListener(name,()=>{pointer=null;});
+viewport.addEventListener('keydown',event=>{
+ const delta={ArrowLeft:[35,0],ArrowRight:[-35,0],ArrowUp:[0,35],ArrowDown:[0,-35]}[event.key];
+ if(delta){event.preventDefault();panX+=delta[0];panY+=delta[1];paintImage();}
+});
+window.addEventListener('resize',()=>{if(gallery.open)paintImage();});
+
+const steps=[
+ {url:'index.html#van-de',label:'Vấn đề'},
+ {url:'nghien-cuu.html#nguyen-ly',label:'Nghiên cứu'},
+ {url:'nghien-cuu.html#the-phong-sinh-hoc',label:'Thẻ phỏng sinh học'},
+ {url:'thiet-ke.html#co-che',label:'Thiết kế'},
+ {url:'vat-lieu.html#kiem-chung',label:'Kiểm chứng'},
+ {url:'doi-ngu.html',label:'Đội ngũ'}
+];
+let presentation=parseState('rainloop-presentation');
+if(presentation && (!Number.isInteger(presentation.index)||!steps[presentation.index]||typeof presentation.origin!=='string')){storage.remove('rainloop-presentation');presentation=null;}
+function updatePresentation(){
+ const bar=$('.presentation-bar');bar.hidden=!presentation;document.body.classList.toggle('presenting',!!presentation);
+ if(!presentation)return;
+ $('#presentation-progress').textContent=`${presentation.index+1} / ${steps.length} · ${steps[presentation.index].label}`;
+ $('[data-presentation-prev]').disabled=presentation.index===0;
+ $('[data-presentation-next]').disabled=presentation.index===steps.length-1;
+}
+function goStep(index){
+ if(!presentation||index<0||index>=steps.length)return;
+ presentation.index=index;storage.set('rainloop-presentation',JSON.stringify(presentation));updatePresentation();
+ const url=new URL(import.meta.env.BASE_URL+steps[index].url,location.origin);
+ if(location.pathname===url.pathname){history.replaceState(null,'',url.pathname+url.hash);const target=$(url.hash||'#main');target?.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});}
+ else location.assign(url.href);
+}
+$$('[data-start-presentation]').forEach(button=>button.addEventListener('click',()=>{
+ presentation={index:0,origin:location.pathname+location.search+location.hash,scroll:$('#mobile-menu').open?menuScroll:scrollY};
+ $$('dialog[open]').forEach(dialog=>dialog.close());
+ goStep(0);
+}));
+$('[data-presentation-prev]').addEventListener('click',()=>goStep(presentation.index-1));
+$('[data-presentation-next]').addEventListener('click',()=>goStep(presentation.index+1));
+function exitPresentation(){
+ if(!presentation)return;
+ const old=presentation;presentation=null;storage.remove('rainloop-presentation');updatePresentation();
+ const origin=new URL(old.origin,location.origin);
+ if(origin.origin!==location.origin||!origin.pathname.startsWith(import.meta.env.BASE_URL))return;
+ if(origin.pathname===location.pathname){history.replaceState(null,'',origin.pathname+origin.search+origin.hash);scrollTo({top:old.scroll||0,behavior:'instant'});}
+ else {storage.set('rainloop-return',JSON.stringify({url:origin.pathname+origin.search+origin.hash,scroll:old.scroll||0}));location.assign(origin.href);}
+}
+$('[data-presentation-exit]').addEventListener('click',exitPresentation);
+window.addEventListener('keydown',event=>{
+ if(!presentation||$('dialog[open]')||event.target.closest('input,textarea,select,[contenteditable=true],.table-scroll,[role=tablist]'))return;
+ if(event.key==='Escape'){event.preventDefault();exitPresentation();}
+});
+const returning=parseState('rainloop-return');
+if(returning&&returning.url===location.pathname+location.search+location.hash){
+ history.scrollRestoration='manual';
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{scrollTo({top:returning.scroll,behavior:'instant'});storage.remove('rainloop-return');}));
+}
+updatePresentation();
