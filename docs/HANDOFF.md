@@ -34,3 +34,13 @@ Mao dẫn là phương án cần xác nhận, chưa được lắp vào sơ đ�
 ## Khả năng đã xây
 
 Nội dung HTML tĩnh; tương tác tăng cường bằng JavaScript. Trình diễn lưu trạng thái tại sessionStorage trong cùng tab; không có tài khoản hay đồng bộ máy chủ. Trình xem ảnh sẵn sàng cho bản gốc, được kiểm thử bằng fixture riêng; chưa thể xác minh độ đọc của bản vẽ chưa được gửi. Chưa đo tốc độ tải trên mạng di động thực tế.
+
+## Upload và triển khai
+
+Mã nguồn và workflow đã được push thành công lên `tommykhanhtrinh/rain-loop-website`, nhánh `main`. Remote đã trả về đúng SHA của commit được đẩy.
+
+Việc bật Pages và kiểm tra URL công khai chưa hoàn tất: truy cập `api.github.com` và `tommykhanhtrinh.github.io` bị proxy môi trường trả 403. Repository có workflow sẵn; trong GitHub chọn Settings → Pages → Source: GitHub Actions, rồi chạy workflow `Build and deploy RainLoop` nếu cần.
+
+Bản nháp môi trường cloud đã lưu install_script, start_skill và hai domain cần thêm. Lưu bản nháp không tự áp dụng mạng hay xuất bản website. Review/Save và Publish môi trường là thao tác riêng với bật GitHub Pages.
+
+Ảnh chụp giao diện được lưu trong `screenshots/` để xem bố cục desktop/mobile; đây là ảnh từ trình duyệt, không phải thiết kế giả lập.
