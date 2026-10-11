@@ -73,3 +73,12 @@ Tên khoa học sậy/cần tây và Kew không còn trong phần nhận diện 
 Unbounded 500/600 và Fraunces 500 italic từ các gói Fontsource khóa phiên bản 5.3.0, tự lưu trữ cùng website. Nội dung và nút vẫn dùng Be Vietnam Pro 5.2.8. Bộ latin, latin-ext, vietnamese được nhập đầy đủ; đã kiểm tra cmap và hiển thị chữ có dấu. License SIL OFL được sao chép vào `public/assets/unbounded-OFL.txt` và `fraunces-OFL.txt`.
 
 Chuyển trang dùng ba dải màu liên tiếp, tiêu đề đích và hiệu ứng mở chương. Không thêm thư viện hoạt ảnh. Navigation HTML vẫn hoạt động khi JavaScript không chạy; nút Trình diễn dùng cùng cơ chế chuyển cảnh. Tắt chuyển động/Reduced Motion bỏ qua cảnh chuyển. Thời gian chuyển đích cố định 570ms, không phụ thuộc animationend; màn mở chờ font tối đa 1.1s rồi mở nội dung. Back/Forward phục hồi từ BFCache xóa trạng thái che trang.
+
+
+## Cảnh nền và chuyển động chữ — 11/10/2026
+
+Đã đối chiếu hai ảnh chụp trang chủ `image(20261011-120633).png` và dải quy trình `image(20261011-120708).png`. Dải trắng cũ được thay bằng khối bốn bước có link thật tới hotspot trên concept. Không thêm số liệu vận hành hoặc thay cấu trúc sản phẩm.
+
+Phong cảnh RainLoop hiện có vẫn là minh họa AI. Hiệu ứng phong cảnh phóng/chuyển chậm, lớp sương CSS, hạt sáng và gợn nước canvas là chuyển động trang trí viết bằng mã, không phải video thiên nhiên thật hay mô phỏng khoa học. Không tạo thêm ảnh và không thay đổi file ảnh gốc. Canvas giới hạn mật độ điểm ảnh 1.5, khoảng 30 fps, dừng khi hero ngoài màn hình, tab ẩn hoặc chuyển động bị tắt.
+
+Chữ chạy dùng HTML/CSS; phần lặp là trang trí ẩn với trình đọc màn hình, có bản nội dung tĩnh. Tiêu đề giữ nguyên chữ Unicode tiếng Việt, chỉ tách từ để hoạt ảnh; không vẽ chữ lên canvas. Chữ xuất hiện lại khi mục trở vào màn hình ở cả hai hướng cuộn. Nút chuyển động và prefers-reduced-motion dừng toàn bộ hiệu ứng mới. Các vùng nền thêm đường đồng mức và vòng nước, giữ nội dung nghiên cứu nguyên vẹn.

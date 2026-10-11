@@ -11,6 +11,8 @@ import './style.css';
 import './reference-theme.css';
 import './criteria.css';
 import './expressive.css';
+import './living.css';
+import { initLivingMotion } from './living.js';
 import { navigateTo } from './transitions.js';
 import { research, hotspots, drawings } from './content.js';
 
@@ -60,7 +62,8 @@ matchMedia('(min-width: 801px)').addEventListener('change',event=>{
 
 if(!reduced.matches) document.documentElement.classList.add('js-motion');
 const revealObserver = new IntersectionObserver(entries=>entries.forEach(entry=>{
- if(entry.isIntersecting){entry.target.classList.add('in-view');revealObserver.unobserve(entry.target);}
+ if(entry.isIntersecting)entry.target.classList.add('in-view');
+ else if(!entry.target.contains(document.activeElement))entry.target.classList.remove('in-view');
 }),{threshold:.08});
 $$('[data-reveal]').forEach(element=>revealObserver.observe(element));
 
@@ -393,3 +396,4 @@ window.addEventListener('resize',paintScroll);paintScroll();
 const timelineObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('timeline-active',entry.isIntersecting)),{rootMargin:'-15% 0px -25% 0px',threshold:.1});
 $$('.timeline-item').forEach(el=>timelineObserver.observe(el));
 $$('.drawing-card,.explore-card,.member').forEach((el,i)=>el.style.setProperty('--reveal-delay',`${i%3*70}ms`));
+initLivingMotion();

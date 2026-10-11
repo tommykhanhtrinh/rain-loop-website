@@ -68,3 +68,13 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 - Đã xem ảnh desktop/mobile: trang chủ, tiêu đề nghiên cứu, thẻ trước/sau, câu chuyện brand và một khung chuyển cảnh. Không tràn ngang hoặc lỗi JavaScript trong bộ kiểm thử.
 - Desktop mặt trước thẻ cao 905px; mặt sau mobile đo 898px. ScrollHeight bằng clientHeight trong các mẫu QA, không cắt nội dung.
 - Trình duyệt kiểm thử Chromium 141; chưa kiểm tra trên Safari/iOS thật.
+
+
+## Phong cảnh động, khoảng trắng và typography chuyển động — 11/10/2026
+
+- Build Vite thành công; kiểm thử cuối: 62 đạt, 2 menu mobile bỏ qua trên desktop/tablet, tổng 64 ca ở 1440×1000, 360×780, 430×932 và 820×1180.
+- Kiểm tra mới: bốn link quy trình mở đúng hotspot; cuộn xuống rồi lên kích hoạt lại reveal; tạm dừng được ghi nhớ giữa trang; canvas/ảnh/chữ chạy dừng; Reduced Motion giữ nội dung và nút.
+- Kiểm tra cũ tiếp tục đạt: điều hướng, Trình diễn sáu bước/khôi phục vị trí, menu, focus, thẻ lật, bộ lọc, lightbox, zoom/pan, tải bản gốc, BOM, font Việt, JavaScript và HTTP assets.
+- QA riêng sáu trang ở 1440px/820px/360px: không tràn ngang. Đã sửa tràn do xoay dải ticker và đường đồng mức trên mục vật liệu; dùng clip-path cho dải chéo, giữ hình trang trí trong phạm vi section.
+- Đã xem ảnh chụp trang chủ/khối quy trình/trang nghiên cứu trên desktop và 360px. Bộ kiểm thử phát hiện một tham chiếu ring cũ đã bỏ; đã chuyển kiểm tra fallback sang lớp phong cảnh thực tế. Kiểm thử cuối chạy sau các sửa đổi.
+- Canvas chỉ trang trí, không mô phỏng dữ liệu đo; phong cảnh vẫn ghi nhãn AI, chưa có video thiên nhiên thật. Không đo FPS trên thiết bị thật; chưa kiểm thử Safari/iOS thật.

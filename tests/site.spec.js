@@ -1,6 +1,30 @@
 import { test, expect } from '@playwright/test';
 const pages=['index','nghien-cuu','nhat-ky','thiet-ke','vat-lieu','doi-ngu'];
 
+test('living process links open the correct blueprint and scroll effects replay with pause support',async({page})=>{
+ await page.goto('index.html');
+ await expect(page.locator('.loop-step')).toHaveCount(4);
+ await expect(page.locator('.wetland-motion')).toBeVisible();
+ await page.locator('.loop-step').first().click();
+ await expect(page).toHaveURL(/thiet-ke.html#nap-thu$/);
+ await expect(page.locator('#hotspot-title')).toHaveText('Nắp thu nước');
+ await page.goto('nghien-cuu.html');
+ const feature=page.locator('.research-feature');
+ await feature.scrollIntoViewIfNeeded();await expect(feature).toHaveClass(/in-view/);
+ await page.evaluate(()=>scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
+ await expect(feature).not.toHaveClass(/in-view/);
+ await feature.scrollIntoViewIfNeeded();await expect(feature).toHaveClass(/in-view/);
+ await page.locator('[data-motion-control]').click();
+ await expect(page.locator('html')).toHaveClass(/motion-paused/);
+ expect(await page.locator('.ticker-track').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+ await page.goto('index.html');
+ await expect(page.locator('.wetland-motion')).toBeHidden();
+ expect(await page.locator('.hero-art>img').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await expect(page.locator('[data-motion-control]')).toBeDisabled();
+ await expect(page.locator('#loop-title')).toContainText('vòng tuần hoàn.');
+});
+
 test('chapter transition navigates, clears on arrival/back and respects reduced motion',async({page})=>{
  await page.goto('nghien-cuu.html');
  await page.locator('.next-section a').click();
@@ -234,7 +258,7 @@ test('reduced motion, pause control, and static media fallback',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.reload();
  await expect(page.locator('.motion-toggle')).toBeDisabled();
- expect(await page.locator('.ring-one').evaluate(element=>getComputedStyle(element).animationName)).toBe('none');
+ expect(await page.locator('.hero-art>img').evaluate(element=>getComputedStyle(element).animationName)).toBe('none');
  await expect(page.locator('.hero-art img')).toBeVisible();
  expect(await page.locator('.hero-art img').evaluate(img=>img.naturalWidth)).toBeGreaterThan(0);
  await expect(page.locator('video')).toHaveCount(0); // No real video has been supplied yet.
