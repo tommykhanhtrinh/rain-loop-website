@@ -13,6 +13,7 @@ import './criteria.css';
 import './expressive.css';
 import './living.css';
 import './bubbles.css';
+import './colorful.css';
 import { initLivingMotion } from './living.js';
 import { initBubbleNavigation } from './bubbles.js';
 import { navigateTo } from './transitions.js';
