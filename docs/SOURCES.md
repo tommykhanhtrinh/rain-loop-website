@@ -62,3 +62,14 @@ Tên khoa học cần tây đối chiếu [Kew Plants of the World Online](https
 Mặt trước thẻ dùng render sản phẩm nhóm cung cấp và logo gốc; tên sinh vật đi kèm nhãn “Tham khảo”. Bốn phần kỹ thuật và ảnh thật ở mặt sau/hồ sơ. Các minh họa nghệ thuật AI giữ trong lightbox và mục mở rộng. Ghi tác giả, nguồn, giấy phép và chỉnh sửa ngay trong hồ sơ ảnh; thông tin tiếp tục hiển thị khi phóng lớn.
 
 `docs/rainloop-userflow.svg` là sơ đồ vector viết bằng mã, mô tả điều hướng thật; dùng trong slide, không đưa vào public assets. Giấy phép ảnh CC BY-SA chỉ áp dụng cho ảnh và bản phái sinh của ảnh, không tự thay giấy phép toàn bộ mã website.
+
+
+## Chỉnh nhận diện Level 3 và typography — 11/10/2026
+
+Yêu cầu mới của nhóm ưu tiên tên hệ sinh thái thay tên loài. Đã đọc lại ba bài giảng buổi 2–4: Form / Process / Ecosystem; phân biệt Function, Strategy, Reference. Thẻ và hồ sơ dùng “Hệ sinh thái đất ngập nước”, đề mục “Nhận diện hệ sinh thái” và “Cấu trúc & Chức năng”. Mao dẫn giữ vai trò cơ chế hỗ trợ kết nối đất–nước–rễ; chưa tích hợp RL-001. Không gán Level 3 riêng cho hiện tượng vật lý mao dẫn.
+
+Tên khoa học sậy/cần tây và Kew không còn trong phần nhận diện website. Ảnh thực vật USGS vẫn dùng để tham khảo thành phần môi trường; ảnh texture Poxnar thay ảnh cần tây ở thẻ mao dẫn. Các thông tin tác giả và giấy phép được giữ. Asset cần tây cũ được lưu nhưng không hiển thị trên website.
+
+Unbounded 500/600 và Fraunces 500 italic từ các gói Fontsource khóa phiên bản 5.3.0, tự lưu trữ cùng website. Nội dung và nút vẫn dùng Be Vietnam Pro 5.2.8. Bộ latin, latin-ext, vietnamese được nhập đầy đủ; đã kiểm tra cmap và hiển thị chữ có dấu. License SIL OFL được sao chép vào `public/assets/unbounded-OFL.txt` và `fraunces-OFL.txt`.
+
+Chuyển trang dùng ba dải màu liên tiếp, tiêu đề đích và hiệu ứng mở chương. Không thêm thư viện hoạt ảnh. Navigation HTML vẫn hoạt động khi JavaScript không chạy; nút Trình diễn dùng cùng cơ chế chuyển cảnh. Tắt chuyển động/Reduced Motion bỏ qua cảnh chuyển. Thời gian chuyển đích cố định 570ms, không phụ thuộc animationend; màn mở chờ font tối đa 1.1s rồi mở nội dung. Back/Forward phục hồi từ BFCache xóa trạng thái che trang.

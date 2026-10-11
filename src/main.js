@@ -4,9 +4,14 @@ import '@fontsource/be-vietnam-pro/600.css';
 import '@fontsource/be-vietnam-pro/700.css';
 import '@fontsource/be-vietnam-pro/400-italic.css';
 import '@fontsource/be-vietnam-pro/500-italic.css';
+import '@fontsource/unbounded/500.css';
+import '@fontsource/unbounded/600.css';
+import '@fontsource/fraunces/500-italic.css';
 import './style.css';
 import './reference-theme.css';
 import './criteria.css';
+import './expressive.css';
+import { navigateTo } from './transitions.js';
 import { research, hotspots, drawings } from './content.js';
 
 const $ = (selector, root=document) => root.querySelector(selector);
@@ -130,8 +135,8 @@ $$('[data-research-detail]').forEach(button=>button.addEventListener('click',()=
  const item=research.find(r=>r.id===button.dataset.researchDetail);if(!item)return;
  const destination=item.hotspotId?`<a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem trên bản vẽ ↗</a>`:'<a class="text-link" href="vat-lieu.html#kiem-chung">Xem kế hoạch kiểm chứng ↗</a>';
  $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC / 4 PHẦN KỸ THUẬT</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span><p class="detail-implementation">${escapeHTML(item.implementation)}</p>
- <section class="technical-detail"><p class="eyebrow">01 / NHẬN DIỆN SINH VẬT</p><h3>${escapeHTML(item.referenceName)} · <i>${escapeHTML(item.scientificName)}</i></h3><button class="macro-preview" data-gallery-src="${item.macro.src}" data-gallery-title="${escapeHTML(item.macro.title)}" data-gallery-caption="${escapeHTML(item.macro.credit)} · Nguồn: ${escapeHTML(item.macro.source)} · Giấy phép: ${escapeHTML(item.macro.license)}" aria-label="Phóng lớn ${escapeHTML(item.macro.title)}"><img src="${item.macro.src}" alt="${escapeHTML(item.macro.title)}"/><span>Ảnh sinh học thật · Phóng lớn ↗</span></button><p class="photo-attribution">${escapeHTML(item.macro.credit)} · <a href="${item.macro.source}" target="_blank" rel="noopener noreferrer">Nguồn ảnh ↗</a> · <a href="${item.macro.license}" target="_blank" rel="noopener noreferrer">Giấy phép ↗</a></p><p>${escapeHTML(item.identity)}</p><p class="note">${escapeHTML(item.referenceNote)}</p></section>
- <section class="technical-detail"><p class="eyebrow">02 / ĐẶC ĐIỂM SINH HỌC</p><h3>Cấu trúc & chức năng</h3><p>${escapeHTML(item.structure)}</p><p>${escapeHTML(item.function)}</p></section>
+ <section class="technical-detail"><p class="eyebrow">01 / NHẬN DIỆN HỆ SINH THÁI</p><h3>${escapeHTML(item.ecosystemName)}</h3><button class="macro-preview" data-gallery-src="${item.macro.src}" data-gallery-title="${escapeHTML(item.macro.title)}" data-gallery-caption="${escapeHTML(item.macro.credit)} · Nguồn: ${escapeHTML(item.macro.source)} · Giấy phép: ${escapeHTML(item.macro.license)}" aria-label="Phóng lớn ${escapeHTML(item.macro.title)}"><img src="${item.macro.src}" alt="${escapeHTML(item.macro.title)}"/><span>Ảnh tham khảo thật · Phóng lớn ↗</span></button><p class="photo-attribution">${escapeHTML(item.macro.credit)} · <a href="${item.macro.source}" target="_blank" rel="noopener noreferrer">Nguồn ảnh ↗</a> · <a href="${item.macro.license}" target="_blank" rel="noopener noreferrer">Giấy phép ↗</a></p><p>${escapeHTML(item.identity)}</p><p class="note">${escapeHTML(item.referenceNote)}</p></section>
+ <section class="technical-detail"><p class="eyebrow">02 / CẤU TRÚC & CHỨC NĂNG</p><h3>Cấu trúc & chức năng</h3><p>${escapeHTML(item.structure)}</p><p>${escapeHTML(item.function)}</p></section>
  <section class="technical-detail"><p class="eyebrow">03 / CƠ CHẾ HOẠT ĐỘNG</p><h3>Từ khoa học đến nguyên lý thiết kế</h3><p>${escapeHTML(item.mechanism)}</p><p><b>Nguyên lý chuyển hóa:</b> ${escapeHTML(item.principle)}</p></section>
  <section class="technical-detail"><p class="eyebrow">04 / ỨNG DỤNG & ĐỊNH VỊ</p><h3>Đối chiếu với RainLoop</h3><p>${escapeHTML(item.application)}</p><div class="detail-drawing-actions"><button class="button light small" data-gallery="sketch">Phóng lớn sketch gốc ↗</button><button class="button light small" data-gallery="concept">Phóng lớn concept ↗</button></div>${destination}<p>${escapeHTML(item.decision)}</p>${!item.hotspotId?'<p class="note">Vị trí dự kiến: từ khoang chứa đến vùng rễ. Chưa có đường dây mao dẫn trên sketch/RL-001; nhóm cần bổ sung chi tiết trước khi xác nhận định vị kỹ thuật.</p>':''}</section>
  <div class="note">${escapeHTML(item.source)}<ul class="research-sources">${(item.sourceLinks||[]).map(source=>`<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.label)} ↗</a></li>`).join('')}</ul></div><details class="art-supplement"><summary>Minh họa nghệ thuật của thẻ</summary><button class="detail-art" data-card-lightbox="${item.id}" aria-label="Phóng lớn hình thẻ ${escapeHTML(item.name)}"><img src="${item.image}" alt="${escapeHTML(item.imageAlt)}"/><span>Minh họa AI · Phóng lớn ↗</span></button></details>`;
@@ -272,7 +277,7 @@ function goStep(index){
  presentation.index=index;storage.set('rainloop-presentation',JSON.stringify(presentation));updatePresentation();
  const url=new URL(import.meta.env.BASE_URL+steps[index].url,location.origin);
  if(location.pathname===url.pathname){history.replaceState(null,'',url.pathname+url.hash);const target=$(url.hash||'#main');target?.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});}
- else location.assign(url.href);
+ else navigateTo(url);
 }
 $$('[data-start-presentation]').forEach(button=>button.addEventListener('click',()=>{
  presentation={index:0,origin:location.pathname+location.search+location.hash,scroll:$('#mobile-menu').open?menuScroll:scrollY};
@@ -287,7 +292,7 @@ function exitPresentation(){
  const origin=new URL(old.origin,location.origin);
  if(origin.origin!==location.origin||!origin.pathname.startsWith(import.meta.env.BASE_URL))return;
  if(origin.pathname===location.pathname){history.replaceState(null,'',origin.pathname+origin.search+origin.hash);scrollTo({top:old.scroll||0,behavior:'instant'});}
- else {storage.set('rainloop-return',JSON.stringify({url:origin.pathname+origin.search+origin.hash,scroll:old.scroll||0}));location.assign(origin.href);}
+ else {storage.set('rainloop-return',JSON.stringify({url:origin.pathname+origin.search+origin.hash,scroll:old.scroll||0}));navigateTo(origin);}
 }
 $('[data-presentation-exit]').addEventListener('click',exitPresentation);
 window.addEventListener('keydown',event=>{

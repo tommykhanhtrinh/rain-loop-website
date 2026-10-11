@@ -64,32 +64,33 @@ export const research = [{
   ]
 }];
 
-// Biological references added to document the required identity/macro component.
-// They illustrate the mechanisms, not an unprovided species survey by the group.
+// Level 3 identity follows the group's ecosystem-level brief.
 Object.assign(research[0], {
-  scientificName: 'Phragmites australis', referenceName: 'Sậy',
-  referenceNote: 'Loài tham khảo để nhận diện thực vật đất ngập nước; nhóm nghiên cứu ở cấp hệ sinh thái. Ảnh USGS chụp quần thể xâm lấn tại Bắc Mỹ, không phải khảo sát sân trường hoặc đề xuất trồng loài này.',
-  macro: { src: 'assets/phragmites-macro.webp', title: 'Ảnh cận cảnh sậy — Phragmites australis', credit: 'Kaira Liggett / USGS · Public Domain', source: 'https://www.usgs.gov/media/images/fluffy-phragmites', license: 'https://www.usgs.gov/media/images/fluffy-phragmites' },
+  ecosystemName: 'Hệ sinh thái đất ngập nước', level: 'Level 3 · Hệ sinh thái',
+  referenceNote: 'RainLoop học cách liên kết thu, lọc sơ bộ, giữ tạm và phân phối nước ở cấp hệ sinh thái. Concept không tái tạo đầy đủ một vùng đất ngập nước và chưa có kết quả kiểm chứng.',
+  macro: { src: 'assets/phragmites-macro.webp', title: 'Ảnh thật thảm thực vật đất ngập nước', credit: 'Kaira Liggett / USGS · Public Domain', source: 'https://www.usgs.gov/media/images/fluffy-phragmites', license: 'https://www.usgs.gov/media/images/fluffy-phragmites' },
   facts: [
-    ['Nhận diện sinh vật', 'Sậy — Phragmites australis, loài tham khảo trong đất ngập nước; cảm hứng chính vẫn là hệ sinh thái.'],
-    ['Đặc điểm sinh học', 'Nền đất, nước và thảm thực vật phối hợp lưu giữ nước và cản dòng chảy.'],
-    ['Cơ chế hoạt động', 'Dòng chậm tạo điều kiện cho cặn lắng; không đồng nhất lắng với mọi quá trình lọc sinh học.'],
+    ['Nhận diện hệ sinh thái', 'Đất ngập nước: nước, nền đất và thảm thực vật liên kết trong cùng một hệ thống.'],
+    ['Cấu trúc & Chức năng', 'Vùng trũng và thảm thực vật lưu giữ nước, cản dòng; kết nối nước với vùng rễ.'],
+    ['Cơ chế hoạt động', 'Dòng chậm tạo điều kiện cho cặn lắng; lắng, lọc vật lý và quá trình sinh học có cơ chế khác nhau.'],
     ['Ứng dụng & Định vị', 'Hộp lọc và khoang trữ tạm; xem lớp lọc 02 trên concept. Đây là lọc sơ bộ, chưa kiểm chứng.']
   ]
 });
-research[0].sourceLinks.push({label:'USGS · Ảnh cận cảnh và nhận diện sậy',url:research[0].macro.source});
+research[0].sourceLinks.push({label:'USGS · Ảnh thành phần thực vật đất ngập nước',url:research[0].macro.source});
 Object.assign(research[1], {
-  scientificName: 'Apium graveolens L.', referenceName: 'Cần tây',
-  referenceNote: 'Cần tây dùng làm tham chiếu mô thực vật cho bài học vận chuyển nước; không bổ sung thành một cảm hứng đã được nhóm khảo sát. Mao dẫn là cơ chế vật lý. Vận chuyển nước trong cây còn liên quan thoát hơi nước và các yếu tố khác.',
-  macro: { src: 'assets/celery-macro.webp', title: 'Ảnh macro mặt cắt cuống lá cần tây', credit: 'KDA-TRUE-TECH / Denis Kuznetsov · CC BY-SA 4.0 · Thu nhỏ và chuyển WebP', source: 'https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D0%BA%D1%80%D0%BE_%D1%81%D1%80%D0%B5%D0%B7_%D1%81%D0%B5%D0%BB%D1%8C%D0%B4%D0%B5%D1%80%D0%B5%D1%8F.jpg', license: 'https://creativecommons.org/licenses/by-sa/4.0/' },
+  ecosystemName: 'Hệ sinh thái đất ngập nước', level: 'Cơ chế hỗ trợ trong Level 3',
+  category: 'Kết nối đất – nước – rễ',
+  identity: 'Trong định hướng hệ sinh thái đất ngập nước, mao dẫn được xem xét như cơ chế đưa nước từ vùng chứa đến vùng rễ. Đây không phải một hệ sinh thái riêng.',
+  referenceNote: 'Định hướng dự án là Level 3 — hệ sinh thái. Mao dẫn là cơ chế vật lý hỗ trợ kết nối đất, nước và vùng rễ, chưa được tích hợp vào RL-001.',
+  macro: { src: 'assets/gravel-texture.webp', title: 'Ảnh thật bề mặt sỏi — tham khảo nền vật liệu', credit: 'Poxnar · CC0 · Thu nhỏ và chuyển WebP', source: 'https://commons.wikimedia.org/wiki/File:Gravel_road_(close-up).jpg', license: 'https://creativecommons.org/publicdomain/zero/1.0/' },
   facts: [
-    ['Nhận diện sinh vật', 'Cần tây — Apium graveolens L., tham chiếu mô dẫn; mao dẫn không phải tên loài.'],
-    ['Đặc điểm sinh học', 'Mô dẫn thực vật gợi mở cách dẫn nước; phương án RainLoop dùng khe nhỏ giữa các sợi thấm.'],
+    ['Nhận diện hệ sinh thái', 'Đất ngập nước; thẻ này tập trung vào mối liên hệ đất, nước và vùng rễ trong hệ thống.'],
+    ['Cấu trúc & Chức năng', 'Khe nhỏ trong vật liệu thấm gợi mở cách đưa nước tới vùng rễ; ảnh sỏi chỉ là texture tham khảo.'],
     ['Cơ chế hoạt động', 'Bám dính, liên kết giữa phân tử nước và sức căng bề mặt; chiều cao nâng nước có giới hạn.'],
     ['Ứng dụng & Định vị', 'Dây dẫn từ khoang chứa tới vùng rễ: dự kiến, chưa có trong RL-001. Cần sketch chi tiết và thử.']
   ]
 });
-research[1].sourceLinks.push({label:'Kew · Tên khoa học cần tây',url:'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:838067-1'}, {label:'Ảnh macro cần tây · Wikimedia Commons',url:research[1].macro.source});
+research[1].sourceLinks.push({label:'Ảnh tham khảo nền vật liệu · Poxnar, CC0',url:research[1].macro.source});
 
 export const timeline = [
   { title: 'Bắt đầu từ một cơn mưa', stage: 'Quan sát vấn đề', status: 'Đang thực hiện', text: 'Nhóm nêu hiện tượng nước mưa đọng hoặc thoát chậm ở sân trường, cùng nhu cầu chăm sóc cây.', learned: 'Cần phân biệt quan sát ban đầu với số liệu đo tại hiện trường.', next: 'Bổ sung ảnh vị trí, thời điểm quan sát và thời gian nước rút.', evidence: 'Mô tả trong yêu cầu dự án; chưa có ảnh khảo sát.' },

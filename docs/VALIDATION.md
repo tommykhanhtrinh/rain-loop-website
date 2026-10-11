@@ -57,3 +57,14 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 - QA hình ảnh: đã xem mặt trước/mặt sau thẻ desktop, thẻ và hồ sơ mobile, Moodboard, câu chuyện brand và SVG userflow. Hai mặt thẻ desktop cao 888px, scrollHeight bằng clientHeight, không cắt nội dung. Không có lỗi JavaScript hoặc tràn ngang trong kiểm tra các trang.
 - Trình duyệt kiểm thử: Chromium Headless Shell 141; chưa thực hiện kiểm tra trên thiết bị Safari/iOS thật.
 - Chưa xác nhận đầy đủ điểm nội dung: ảnh mô hình thật, dữ liệu thử, nguồn nghiên cứu riêng, khối lượng/báo giá và liên hệ vẫn chưa được cung cấp. Đây là giới hạn tư liệu, được đánh dấu trên website.
+
+
+## Level 3, font biểu đạt và chuyển cảnh — 11/10/2026
+
+- Build thành công; bộ kiểm thử cập nhật đạt 58/60 ca trên bốn viewport, 2 ca menu mobile bỏ qua có chủ đích ở desktop/tablet.
+- Thẻ dùng tên hệ sinh thái, không có nhãn tên loài; bốn đề mục điều chỉnh theo yêu cầu mới. Flip, hồ sơ, lightbox và zoom sketch vẫn hoạt động.
+- Kiểm tra điều hướng có cảnh chuyển, kết thúc cảnh sau khi đến trang, Back, chế độ giảm chuyển động và Trình diễn đủ sáu bước; giữ vị trí khi thoát.
+- Cmap của ba subset latin/latin-ext/vietnamese kiểm tra câu tiếng Việt và các dấu kép: không thiếu glyph trong chuỗi mẫu. Trình duyệt xác nhận Fraunces italic đã tải; tiêu đề dùng Unbounded.
+- Đã xem ảnh desktop/mobile: trang chủ, tiêu đề nghiên cứu, thẻ trước/sau, câu chuyện brand và một khung chuyển cảnh. Không tràn ngang hoặc lỗi JavaScript trong bộ kiểm thử.
+- Desktop mặt trước thẻ cao 905px; mặt sau mobile đo 898px. ScrollHeight bằng clientHeight trong các mẫu QA, không cắt nội dung.
+- Trình duyệt kiểm thử Chromium 141; chưa kiểm tra trên Safari/iOS thật.

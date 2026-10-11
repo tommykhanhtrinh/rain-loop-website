@@ -1,18 +1,35 @@
 import { test, expect } from '@playwright/test';
 const pages=['index','nghien-cuu','nhat-ky','thiet-ke','vat-lieu','doi-ngu'];
 
+test('chapter transition navigates, clears on arrival/back and respects reduced motion',async({page})=>{
+ await page.goto('nghien-cuu.html');
+ await page.locator('.next-section a').click();
+ await expect(page.locator('html')).toHaveClass(/route-leaving/);
+ await expect(page).toHaveURL(/nhat-ky.html$/);
+ await expect(page.locator('html')).not.toHaveClass(/route-(arriving|revealing|leaving)/);
+ await expect(page.locator('body')).not.toHaveAttribute('aria-busy','true');
+ await page.goBack();await expect(page).toHaveURL(/nghien-cuu.html$/);
+ await expect(page.locator('html')).not.toHaveClass(/route-(arriving|revealing|leaving)/);
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('.next-section a').click();await expect(page).toHaveURL(/nhat-ky.html$/);
+ await expect(page.locator('html')).not.toHaveClass(/route-(arriving|revealing|leaving)/);
+ await expect(page.locator('.route-transition')).toBeHidden();
+ const family=await page.locator('h1').evaluate(el=>getComputedStyle(el).fontFamily);
+ expect(family).toContain('Unbounded');
+});
+
 test('rubric card uses product render and logo, four technical sections and nested sketch zoom',async({page})=>{
  await page.goto('nghien-cuu.html');
  const card=page.locator('#card-dat-ngap-nuoc');
  await expect(card.locator('.card-front .card-art img')).toHaveAttribute('src','assets/rainloop-render-3d.webp');
  await expect(card.locator('.card-brand img')).toHaveAttribute('src','assets/rainloop-logo.png');
- await expect(card.locator('.card-species')).toContainText('Phragmites australis');
+ await expect(card.locator('.card-ecosystem')).toContainText('Hệ sinh thái đất ngập nước');
  const product=card.locator('.card-front [data-gallery=render]');await product.click();
  await expect(page.locator('#gallery-title')).toHaveText('Render tổng thể nhiều góc nhìn');
  await expect(page.locator('.gallery-download')).toHaveAttribute('href',/originals\/rainloop-render-3d.png$/);
  await page.keyboard.press('Escape');await expect(product).toBeFocused();
  await card.locator('[data-flip]').first().click();
- await expect(card.locator('.card-facts b')).toHaveText(['Nhận diện sinh vật','Đặc điểm sinh học','Cơ chế hoạt động','Ứng dụng & Định vị']);
+ await expect(card.locator('.card-facts b')).toHaveText(['Nhận diện hệ sinh thái','Cấu trúc & Chức năng','Cơ chế hoạt động','Ứng dụng & Định vị']);
  await expect.poll(()=>card.locator('.card-macro').evaluate(i=>i.complete&&i.naturalWidth>0)).toBeTruthy();
  await card.locator('[data-research-detail]').click();
  await expect(page.locator('.technical-detail')).toHaveCount(4);
@@ -255,8 +272,8 @@ test('404 and style tile are reachable',async({page})=>{
 test('supplied drawings, original downloads, comparison and local Vietnamese fonts',async({page})=>{
  await page.goto('thiet-ke.html');
  await page.evaluate(()=>document.fonts.ready);
- const typography=await page.locator('h1 em').evaluate(el=>({family:getComputedStyle(el).fontFamily,style:getComputedStyle(el).fontStyle,loaded:document.fonts.check('500 24px "Be Vietnam Pro"','Thiết kế vùng rễ')}));
- expect(typography.family).toContain('Be Vietnam Pro');expect(typography.style).toBe('normal');expect(typography.loaded).toBeTruthy();
+ const typography=await page.locator('h1 em').evaluate(el=>({family:getComputedStyle(el).fontFamily,style:getComputedStyle(el).fontStyle,loaded:document.fonts.check('italic 500 24px "Fraunces"','Thiết kế vùng rễ')}));
+ expect(typography.family).toContain('Fraunces');expect(typography.style).toBe('italic');expect(typography.loaded).toBeTruthy();
  await expect(page.locator('.drawing-preview')).toHaveCount(5);
  await page.locator('[data-compare]').fill('75');
  await expect(page.locator('[data-compare-output]')).toHaveText('75%');
