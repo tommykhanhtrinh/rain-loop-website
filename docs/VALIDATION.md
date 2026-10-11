@@ -37,3 +37,11 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 - Lưới lớn/gọn ghi nhớ sau reload, bộ lọc và số thẻ hiển thị hoạt động; phần mao dẫn không tạo link hotspot giả.
 - Lightbox ảnh AI: tải PNG gốc, ảnh trước/tiếp, thumbnail giữ focus, zoom, vuốt qua pointer events, đóng và trả focus. Kiểm thử mô phỏng không thay kiểm tra cảm ứng trên thiết bị vật lý.
 - Quan sát ảnh chụp ở 1440×1000 và 390×844; không tràn ngang. Lightbox trên điện thoại bố trí nút Đóng ở góc trên, ảnh theo tỷ lệ gốc.
+
+## Thiết kế lại theo ảnh tham chiếu — 11/10/2026
+
+- Thanh điều hướng nổi dạng viên thuốc; hero toàn cảnh đất ngập nước, slogan giữa trang; các khối sáng bo tròn và minh họa thiên nhiên nổi.
+- Hai ảnh AI mới có ghi chú trên giao diện và prompt trong hồ sơ nguồn; ảnh đảo thiên nhiên giữ alpha trong suốt, ảnh dùng trên web nén WebP. Không bổ sung video giả.
+- Build production thành công. Chromium Headless Shell 141: 50 kiểm thử đạt, 2 trường hợp menu điện thoại không áp dụng trên desktop/tablet được bỏ qua. Kiểm tra ở 1440 × 1000, 360 × 780, 430 × 932, 820 × 1180.
+- Quan sát ảnh chụp riêng ở 1440 × 1000 và 390 × 844; không lỗi JavaScript hay tràn ngang. Kiểm tra menu nổi, màu chữ, typography, phần cắt ảnh, bố cục nature section, hỗ trợ giảm chuyển động.
+- Tiêu đề nhấn màu hiện dùng font Be Vietnam Pro dáng thẳng theo mẫu mới; kiểm thử font tiếng Việt cập nhật theo quyết định này. Các font nghiêng tự lưu trữ vẫn sẵn cho những nội dung cần dùng.

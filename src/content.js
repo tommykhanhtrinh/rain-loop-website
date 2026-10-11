@@ -5,7 +5,7 @@ export const site = {
   school: 'Trường Đinh Thiện Lý', course: 'Thiết kế & Công nghệ · Lớp 12',
   logo: 'assets/rainloop-logo.png', contact: null,
   // Local, licensed assets only. Leave null until supplied and recorded in docs/SOURCES.md.
-  heroVideo: null, heroPoster: null,
+  heroVideo: null, heroPoster: 'assets/rainloop-wetland-panorama.webp',
 };
 
 export const pages = [

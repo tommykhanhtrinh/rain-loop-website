@@ -35,3 +35,13 @@ Năm ảnh thiết kế được lưu WebP để hiển thị; PNG gốc ở `pu
 - Bản gốc ở `public/assets/originals/`; prompt đầy đủ ở `docs/CARD-ART-PROMPTS.json`. Cả hai ảnh 1086×1448 px; WebP chất lượng 90 chỉ đổi định dạng, không sửa đối tượng.
 - Trạng thái đất ngập nước và mao dẫn đều do nhóm đã xác nhận lựa chọn. Mao dẫn chưa có chi tiết trong RL-001 nên vẫn ghi rõ chưa tích hợp; không đổi kết quả thử nghiệm.
 - Nguồn nền tảng bổ sung được kiểm tra ngày 11/10/2026: USGS, “Capillary Action and Water”, https://www.usgs.gov/water-science-school/science/capillary-action-and-water; EPA, “Functions & Values of Wetlands”, https://www.epa.gov/sites/default/files/2021-01/documents/functions_values_of_wetlands.pdf. Các nguồn này bổ sung đối chiếu, không được gán là link AskNature/bài nghiên cứu do nhóm đã gửi.
+
+## Giao diện theo hai ảnh tham chiếu — 11/10/2026
+
+Hai ảnh tham chiếu do người dùng gửi (Haven và Verdro) định hướng thanh điều hướng dạng viên thuốc, phần mở đầu toàn cảnh thiên nhiên và các khối sáng bo tròn. Không dùng ảnh chụp giao diện làm ảnh nền hoặc sao chép thương hiệu, số liệu marketing từ mẫu.
+
+- `assets/rainloop-wetland-panorama.webp`: phong cảnh minh họa bằng công cụ tạo ảnh tích hợp của ChatGPT; 1672 × 941, nguồn PNG trong `assets/originals/rainloop-wetland-panorama.png`.
+- `assets/rainloop-wetland-island.webp`: khối thiên nhiên nổi minh họa ý tưởng bằng AI; 1536 × 1024, giữ alpha trong suốt; PNG trong `assets/originals/rainloop-wetland-island.png`.
+- Prompt đầy đủ và công cụ: `docs/REFERENCE-REDESIGN-PROMPTS.json`.
+
+Các ảnh trên phục vụ nhận diện thị giác, không phải ảnh khảo sát hay bằng chứng nghiên cứu. Website vẫn chưa có video thiên nhiên thật. Màu xanh rừng và xanh nước giữ vai trò nhận diện; xanh lá nhạt #D7EB8C và nền #FAFBF7 bổ sung cho giao diện mới. Logo, bản vẽ và thông tin khoa học của nhóm giữ nguyên.

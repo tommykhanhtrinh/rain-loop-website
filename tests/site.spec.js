@@ -224,8 +224,8 @@ test('404 and style tile are reachable',async({page})=>{
 test('supplied drawings, original downloads, comparison and local Vietnamese fonts',async({page})=>{
  await page.goto('thiet-ke.html');
  await page.evaluate(()=>document.fonts.ready);
- const typography=await page.locator('h1 em').evaluate(el=>({family:getComputedStyle(el).fontFamily,style:getComputedStyle(el).fontStyle,loaded:document.fonts.check('italic 400 24px "Be Vietnam Pro"','Thiết kế vùng rễ')}));
- expect(typography.family).toContain('Be Vietnam Pro');expect(typography.style).toBe('italic');expect(typography.loaded).toBeTruthy();
+ const typography=await page.locator('h1 em').evaluate(el=>({family:getComputedStyle(el).fontFamily,style:getComputedStyle(el).fontStyle,loaded:document.fonts.check('500 24px "Be Vietnam Pro"','Thiết kế vùng rễ')}));
+ expect(typography.family).toContain('Be Vietnam Pro');expect(typography.style).toBe('normal');expect(typography.loaded).toBeTruthy();
  await expect(page.locator('.drawing-preview')).toHaveCount(5);
  await page.locator('[data-compare]').fill('75');
  await expect(page.locator('[data-compare-output]')).toHaveText('75%');

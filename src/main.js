@@ -5,6 +5,7 @@ import '@fontsource/be-vietnam-pro/700.css';
 import '@fontsource/be-vietnam-pro/400-italic.css';
 import '@fontsource/be-vietnam-pro/500-italic.css';
 import './style.css';
+import './reference-theme.css';
 import { research, hotspots, drawings } from './content.js';
 
 const $ = (selector, root=document) => root.querySelector(selector);
