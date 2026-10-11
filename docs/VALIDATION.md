@@ -83,3 +83,11 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 ## Thay ảnh Cảm hứng chính — 11/10/2026
 
 Build thành công; 8 kiểm thử liên quan trên bốn viewport đạt. QA riêng 1440px và 360px: ảnh 1372×768 hiển thị đủ, không tràn ngang/không lỗi JavaScript; bấm mở đúng PNG gốc, đóng lightbox trả focus. Đã xem ảnh chụp hai bố cục.
+
+
+## Bong bóng và thanh điều hướng màu — 11/10/2026
+
+- Build thành công; bộ kiểm thử đầy đủ 62 đạt, 2 menu mobile bỏ qua trên desktop/tablet. Kiểm tra lại điều hướng, Trình diễn, menu/focus, thẻ, lightbox, pointer và Reduced Motion.
+- QA hình ảnh/JavaScript ở 1440×1000, 1100×1000, 820×1000, 360×780 và 430×1000: không tràn ngang hoặc lỗi JavaScript; đã xem ảnh trang chủ, khối discovery, trạng thái hover nav và menu mobile.
+- Capsule đổi vị trí từ 5px đến 202.625px trên desktop, 5px đến 175.625px ở 1100px khi hover tab Journal. Mobile/tablet dùng menu dưới breakpoint 1051px; HTML links và accessible labels được giữ.
+- Trình duyệt Chromium Headless Shell 141, chưa kiểm tra trên thiết bị Safari/iOS thật hoặc đo FPS thực tế.

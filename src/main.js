@@ -12,7 +12,9 @@ import './reference-theme.css';
 import './criteria.css';
 import './expressive.css';
 import './living.css';
+import './bubbles.css';
 import { initLivingMotion } from './living.js';
+import { initBubbleNavigation } from './bubbles.js';
 import { navigateTo } from './transitions.js';
 import { research, hotspots, drawings } from './content.js';
 
@@ -56,7 +58,7 @@ $('.menu-toggle')?.addEventListener('click',event=>{
   openDialog($('#mobile-menu'),event.currentTarget);
 });
 $$('#mobile-menu a').forEach(a=>a.addEventListener('click',()=>$('#mobile-menu').close()));
-matchMedia('(min-width: 801px)').addEventListener('change',event=>{
+matchMedia('(min-width: 1051px)').addEventListener('change',event=>{
   if(event.matches && $('#mobile-menu').open) $('#mobile-menu').close();
 });
 
@@ -397,3 +399,4 @@ const timelineObserver=new IntersectionObserver(entries=>entries.forEach(entry=>
 $$('.timeline-item').forEach(el=>timelineObserver.observe(el));
 $$('.drawing-card,.explore-card,.member').forEach((el,i)=>el.style.setProperty('--reveal-delay',`${i%3*70}ms`));
 initLivingMotion();
+initBubbleNavigation();

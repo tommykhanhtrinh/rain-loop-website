@@ -87,3 +87,10 @@ Chữ chạy dùng HTML/CSS; phần lặp là trang trí ẩn với trình đọ
 ## Thay ảnh tại Cảm hứng chính — 11/10/2026
 
 Theo ảnh vị trí `image(20261011-123010).png`, chỉ thay minh họa khối đất nổi tại research feature ở trang Nghiên cứu. Ảnh mới: `image(20261011-123033).png`, do nhóm gửi; giữ nguyên hình và chú thích. Lưu PNG gốc tại `public/assets/originals/rainloop-ecosystem-sketch.png`, bản WebP tại `public/assets/rainloop-ecosystem-sketch.webp`. Không crop/chỉnh cấu trúc; chỉ đổi định dạng cho hiển thị. Bấm ảnh để mở PNG gốc trong lightbox; ghi nhãn phác thảo nhóm cung cấp, không phải mô hình đã kiểm chứng.
+
+
+## Bong bóng màu và điều hướng — 11/10/2026
+
+Đối chiếu ảnh chụp `image(20261011-130259).png`: hai khối discovery, các pill CTA/kicker và thanh điều hướng trước đây đơn sắc. Bổ sung gradient kính xanh rừng/xanh nước/lime/vàng, đường viền conic, orb trang trí và SVG giọt nước viết bằng mã. Không sửa ảnh cảnh, logo, bản vẽ hay nội dung nghiên cứu. Orb và viền chuyển động độc lập với hộp liên kết để giữ hình học/touch target ổn định; các lớp trang trí không bắt pointer.
+
+Điều hướng desktop có sáu tab màu, số chương ẩn với trình đọc màn hình, capsule trượt theo pointer/focus và trả về trang hiện tại. Giữ href/aria-current gốc. JS đo capsule lại sau khi font sẵn sàng và nav resize. Dưới 1051px chuyển sang menu touch có cùng bảng màu; media query đóng dialog được đồng bộ với breakpoint. Tắt chuyển động/Reduced Motion dừng các hoạt ảnh và bỏ transition capsule. Bóng/trang trí discovery dừng khi hero ngoài màn hình.
