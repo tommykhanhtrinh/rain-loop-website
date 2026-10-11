@@ -12,15 +12,18 @@ Kiểm tra trên máy cloud của dự án, bằng Node.js 24.19.0 và Chromium 
 - Trình diễn qua cả sáu bước, khóa nút Tiếp tại bước cuối, thoát và khôi phục trang/vị trí cuộn.
 - Menu mobile: giữ focus trong modal, Escape, trả focus, đóng khi chọn link; header vẫn hiện sau khi cuộn xuống cuối.
 - Giảm chuyển động, tạm dừng chuyển động và ảnh minh họa thay thế đang dùng.
-- Viewer ảnh: zoom, di chuyển bằng bàn phím, ảnh kế tiếp, reset zoom, Escape và trả focus. Dùng SVG của website làm fixture kiểm thử riêng; không giả định bản vẽ chưa nhận đã được kiểm tra.
+- Viewer ảnh: zoom, di chuyển bằng bàn phím, ảnh kế tiếp, reset zoom, Escape và trả focus; năm ảnh thiết kế tải được, liên kết tải PNG gốc đúng.
+- Thanh so sánh ảnh, tư liệu Journal và blueprint ở mục vật liệu.
+- Font Be Vietnam Pro tự lưu trữ có bộ ký tự tiếng Việt và chữ nghiêng thật; kiểm tra font đã tải.
+- Con trỏ động, tắt/bật chuyển động toàn trang, ghi nhớ lựa chọn và chế độ giảm chuyển động trên desktop/mobile.
 - Đã quan sát ảnh chụp trình duyệt desktop/mobile và kiểm tra cuộn qua các phần.
 
-Bộ kiểm thử gồm 36 trường hợp theo viewport: 34 trường hợp áp dụng, 2 trường hợp menu mobile được bỏ qua trên desktop/tablet. Sau vòng kiểm thử toàn bộ, lỗi khôi phục vị trí khi khởi động từ menu được sửa; 6 trường hợp liên quan Trình diễn/menu đã chạy lại và đạt, 2 trường hợp không áp dụng được bỏ qua. Các kiểm tra khác không thay đổi.
+Bộ kiểm thử sau cập nhật gồm 44 trường hợp: 42 đạt, 2 trường hợp menu mobile không áp dụng trên desktop/tablet được bỏ qua. Production build thành công. Quan sát thêm giao diện 1440×1000 và 390×844 bằng ảnh chụp trình duyệt.
 
 ## Chưa kiểm chứng
 
 - Video thật, lỗi tải video và việc xin quyền sử dụng: chưa có video được cung cấp. Không tạo request video giả; mã hỗ trợ được chuẩn bị nhưng chưa kiểm chứng bằng media thật.
-- Độ đọc bản vẽ gốc, tọa độ hotspot trên bản gốc và ảnh mô hình: chưa có tư liệu.
+- Ảnh mô hình thật và độ chính xác kỹ thuật của kích thước blueprint chưa được nhóm xác nhận. Hotspot đã đối chiếu với concept; PNG gốc mở được.
 - Thao tác kéo ảnh trên thiết bị cảm ứng vật lý và trình đọc màn hình: chưa thử trên thiết bị thật. Kiểm thử trình duyệt chạy môi trường mô phỏng viewport/cảm ứng.
 - Safari/Firefox: chưa chạy.
 - Tốc độ trên mạng di động thật: chưa đo. Kích thước file không được xem như phép đo tốc độ.

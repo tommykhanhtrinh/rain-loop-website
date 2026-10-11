@@ -1,9 +1,9 @@
-import '@fontsource/be-vietnam-pro/latin-400.css';
-import '@fontsource/be-vietnam-pro/vietnamese-400.css';
-import '@fontsource/be-vietnam-pro/latin-500.css';
-import '@fontsource/be-vietnam-pro/vietnamese-500.css';
-import '@fontsource/be-vietnam-pro/latin-600.css';
-import '@fontsource/be-vietnam-pro/vietnamese-600.css';
+import '@fontsource/be-vietnam-pro/400.css';
+import '@fontsource/be-vietnam-pro/500.css';
+import '@fontsource/be-vietnam-pro/600.css';
+import '@fontsource/be-vietnam-pro/700.css';
+import '@fontsource/be-vietnam-pro/400-italic.css';
+import '@fontsource/be-vietnam-pro/500-italic.css';
 import './style.css';
 import { research, hotspots, drawings } from './content.js';
 
@@ -60,10 +60,13 @@ $$('[data-reveal]').forEach(element=>revealObserver.observe(element));
 const video=$('.hero-art video');
 let motionPaused=storage.get('rainloop-motion-paused')==='true';
 const motionButton=$('.motion-toggle');
+const motionControls=$$('[data-motion-control]');
 function syncMotion(){
  const stopped=motionPaused||reduced.matches;
  document.documentElement.classList.toggle('motion-paused',stopped);
  if(motionButton){motionButton.setAttribute('aria-pressed',String(stopped));motionButton.textContent=stopped?'Bật chuyển động ▷':'Tạm dừng chuyển động Ⅱ';if(reduced.matches)motionButton.textContent='Đã giảm chuyển động';motionButton.disabled=reduced.matches;}
+ motionControls.forEach(button=>{button.setAttribute('aria-pressed',String(stopped));button.textContent=stopped?'Chuyển động: tắt':'Chuyển động: bật';button.setAttribute('aria-label',stopped?'Bật chuyển động':'Tạm dừng chuyển động');button.disabled=reduced.matches;});
+ document.dispatchEvent(new CustomEvent('rainloop:motion',{detail:{stopped}}));
  if(video){if(stopped)video.pause();else if(video.dataset.visible==='true')playVideo();}
 }
 function playVideo(){
@@ -72,6 +75,7 @@ function playVideo(){
  video.play().catch(()=>{video.hidden=true;});
 }
 motionButton?.addEventListener('click',()=>{motionPaused=!motionPaused;storage.set('rainloop-motion-paused',String(motionPaused));syncMotion();});
+motionControls.forEach(button=>button.addEventListener('click',()=>{motionPaused=!motionPaused;storage.set('rainloop-motion-paused',String(motionPaused));syncMotion();}));
 reduced.addEventListener('change',syncMotion);
 if(video){
  video.addEventListener('error',()=>{video.hidden=true;});
@@ -100,7 +104,7 @@ $$('[data-flip]').forEach(button=>button.addEventListener('click',()=>{
 }));
 $$('[data-research-detail]').forEach(button=>button.addEventListener('click',()=>{
  const item=research.find(r=>r.id===button.dataset.researchDetail);if(!item)return;
- $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}</div><a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem sơ đồ minh họa ↗</a>`;
+ $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}</div><a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem trên bản vẽ ↗</a>`;
  openDialog($('#detail-dialog'),button);
 }));
 
@@ -143,7 +147,7 @@ $$('[data-material-tab]').forEach(button=>{
  });
 });
 
-// The viewer accepts supplied originals only; absent drawings remain informative placeholders.
+// Supplied originals are available for reading measurements and downloading.
 const gallery=$('#gallery-dialog'),viewport=$('.gallery-viewport'),galleryImage=$('img',viewport);
 let galleryItems=[],galleryIndex=0,zoom=1,panX=0,panY=0,pointer=null;
 function paintImage(){
@@ -157,13 +161,14 @@ function paintImage(){
 function showImage(index){
  galleryIndex=(index+galleryItems.length)%galleryItems.length;
  const item=galleryItems[galleryIndex];
- galleryImage.src=item.src;galleryImage.alt=item.title;$('#gallery-title').textContent=item.title;
+ galleryImage.src=item.original||item.src;galleryImage.alt=item.title;$('#gallery-title').textContent=item.title;
+ $('.gallery-download').href=item.original||item.src;
  zoom=1;panX=0;panY=0;paintImage();
  $('[data-gallery-prev]').disabled=galleryItems.length<2;$('[data-gallery-next]').disabled=galleryItems.length<2;
 }
 document.addEventListener('click',event=>{
  const button=event.target.closest('[data-gallery], [data-gallery-src]');if(!button)return;
- galleryItems=drawings.filter(d=>d.src).map(d=>({id:d.id,src:d.src,title:d.title}));
+ galleryItems=drawings.filter(d=>d.src).map(d=>({id:d.id,src:d.src,title:d.title,original:d.original}));
  if(button.dataset.gallerySrc){
   galleryItems=$$('[data-gallery-src]').map((b,i)=>({id:`supplied-${i}`,src:b.dataset.gallerySrc,title:b.dataset.galleryTitle||'Ảnh thiết kế'}));
   galleryIndex=$$('[data-gallery-src]').indexOf(button);
@@ -235,3 +240,91 @@ if(returning&&returning.url===location.pathname+location.search+location.hash){
  requestAnimationFrame(()=>requestAnimationFrame(()=>{scrollTo({top:returning.scroll,behavior:'instant'});storage.remove('rainloop-return');}));
 }
 updatePresentation();
+
+// Comparison slider stays usable by keyboard and touch.
+$$('[data-compare]').forEach(input=>{
+ const comparison=input.closest('.design-comparison');
+ input.addEventListener('input',()=>{
+  const value=Number(input.value);
+  $('.comparison-stage',comparison).style.setProperty('--compare',`${value}%`);
+  input.setAttribute('aria-valuetext',`${value}% phác thảo, ${100-value}% concept`);
+  $('[data-compare-output]',comparison).textContent=`${value}%`;
+ });
+});
+
+// Hover effects supplement the native pointer; no interaction depends on them.
+const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
+const halo=$('.cursor-halo'),cursorControl=$('[data-cursor-control]');
+let cursorEnabled=storage.get('rainloop-cursor')!=='false';
+let cursorFrame=0,scrollFrame=0,pointerX=0,pointerY=0,pointerPresent=false;
+function effectsEnabled(){return !reduced.matches&&!motionPaused;}
+function updateCursorState(){
+ const active=cursorEnabled&&finePointer.matches&&effectsEnabled();
+ document.documentElement.classList.toggle('cursor-effects',active);
+ cursorControl.hidden=!finePointer.matches;
+ cursorControl.setAttribute('aria-pressed',String(active));
+ cursorControl.textContent=active?'Con trỏ: bật':'Con trỏ: tắt';
+ cursorControl.disabled=reduced.matches||motionPaused;
+ if(!active){halo.classList.remove('visible');$$('.pointer-ripple').forEach(r=>r.remove());}
+}
+cursorControl.addEventListener('click',()=>{cursorEnabled=!cursorEnabled;storage.set('rainloop-cursor',String(cursorEnabled));updateCursorState();});
+finePointer.addEventListener('change',updateCursorState);
+document.addEventListener('rainloop:motion',()=>{
+ updateCursorState();
+ if(!effectsEnabled()){
+  $$('[data-tilt],.button').forEach(el=>{el.style.removeProperty('--tilt-x');el.style.removeProperty('--tilt-y');el.style.removeProperty('--pointer-x');el.style.removeProperty('--pointer-y');});
+  $('.hero-art')?.style.removeProperty('--parallax');
+ }
+});
+updateCursorState();
+document.addEventListener('pointermove',event=>{
+ if(event.pointerType==='touch'||!document.documentElement.classList.contains('cursor-effects'))return;
+ pointerX=event.clientX;pointerY=event.clientY;pointerPresent=true;
+ const target=event.target.closest('a,button,summary,input[type=range]');
+ const inspecting=!!event.target.closest('[data-gallery],[data-gallery-src]');
+ halo.classList.toggle('interactive-target',!!target);
+ $('span',halo).textContent=inspecting?'Xem':'';
+ if(!cursorFrame)cursorFrame=requestAnimationFrame(()=>{
+  cursorFrame=0;halo.style.translate=`${pointerX}px ${pointerY}px`;
+  halo.classList.toggle('visible',pointerPresent&&!$('dialog[open]'));
+ });
+},{passive:true});
+document.addEventListener('pointerout',event=>{if(!event.relatedTarget){pointerPresent=false;halo.classList.remove('visible');}});
+window.addEventListener('blur',()=>halo.classList.remove('visible'));
+document.addEventListener('pointerdown',event=>{
+ if(event.pointerType==='touch'||!effectsEnabled()||!cursorEnabled||!finePointer.matches||$('dialog[open]'))return;
+ const ripple=document.createElement('span');ripple.className='pointer-ripple';ripple.setAttribute('aria-hidden','true');
+ ripple.style.left=`${event.clientX}px`;ripple.style.top=`${event.clientY}px`;document.body.append(ripple);
+ ripple.addEventListener('animationend',()=>ripple.remove(),{once:true});setTimeout(()=>ripple.remove(),900);
+});
+$$('.drawing-card,.explore-card,.member').forEach(el=>{
+ el.dataset.tilt='';
+ el.addEventListener('pointermove',event=>{
+  if(!finePointer.matches||!effectsEnabled()||event.pointerType==='touch')return;
+  const rect=el.getBoundingClientRect();
+  el.style.setProperty('--tilt-x',`${((event.clientY-rect.top)/rect.height-.5)*-3}deg`);
+  el.style.setProperty('--tilt-y',`${((event.clientX-rect.left)/rect.width-.5)*3}deg`);
+ });
+ el.addEventListener('pointerleave',()=>{el.style.setProperty('--tilt-x','0deg');el.style.setProperty('--tilt-y','0deg');});
+});
+$$('.button').forEach(el=>{
+ el.addEventListener('pointermove',event=>{
+  if(!finePointer.matches||!effectsEnabled()||event.pointerType==='touch')return;
+  const r=el.getBoundingClientRect();
+  el.style.setProperty('--pointer-x',`${(event.clientX-r.left-r.width/2)*.07}px`);
+  el.style.setProperty('--pointer-y',`${(event.clientY-r.top-r.height/2)*.07}px`);
+ });
+ el.addEventListener('pointerleave',()=>{el.style.setProperty('--pointer-x','0px');el.style.setProperty('--pointer-y','0px');});
+});
+function paintScroll(){
+ scrollFrame=0;
+ const max=document.documentElement.scrollHeight-innerHeight;
+ const progress=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+ $('.scroll-progress').style.scale=`${progress} 1`;
+ const hero=$('.hero-art');if(hero&&effectsEnabled())hero.style.setProperty('--parallax',`${Math.min(scrollY*.09,65)}px`);
+}
+window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(paintScroll);},{passive:true});
+window.addEventListener('resize',paintScroll);paintScroll();
+const timelineObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('timeline-active',entry.isIntersecting)),{rootMargin:'-15% 0px -25% 0px',threshold:.1});
+$$('.timeline-item').forEach(el=>timelineObserver.observe(el));
+$$('.drawing-card,.explore-card,.member').forEach((el,i)=>el.style.setProperty('--reveal-delay',`${i%3*70}ms`));

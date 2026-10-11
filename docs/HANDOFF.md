@@ -2,7 +2,7 @@
 
 ## Hướng thiết kế
 
-Nền sáng, xanh rừng và xanh nước; vàng dùng cho hành động chính. Typography Be Vietnam Pro kết hợp chữ nghiêng serif ở điểm nhấn. Trang chủ có đồ họa đất ngập nước nhiều lớp và chuyển động nhẹ; trang chuyên môn ưu tiên đọc, tra cứu và trình chiếu. Mẫu token/component thực tế tại `nhan-dien.html`.
+Nền sáng, xanh rừng và xanh nước; vàng dùng cho hành động chính. Typography Be Vietnam Pro thống nhất, có font nghiêng thật và bộ ký tự tiếng Việt. Trang chủ có đồ họa đất ngập nước nhiều lớp và chuyển động nhẹ; trang chuyên môn ưu tiên đọc, tra cứu và trình chiếu. Mẫu token/component thực tế tại `nhan-dien.html`.
 
 Hai skill được áp dụng cho bố cục, tính liên tục của nội dung, điều hướng mobile, tương tác và giảm chuyển động. Yêu cầu RainLoop ưu tiên website hồ sơ sáu trang, nên không tạo logo, video AI hoặc chuỗi ảnh portrait bắt buộc.
 
@@ -20,27 +20,21 @@ Cuộn tự nhiên, không ghim hoặc khóa cuộn. Hero khoảng một màn h�
 
 | Nhóm tiêu chí | Phần đã triển khai | Bằng chứng cần bổ sung |
 | --- | --- | --- |
-| Nội dung & Nghiên cứu | Nghiên cứu, bộ thẻ/bộ lọc, moodboard, nhật ký, thư viện thiết kế, vật liệu, kế hoạch kiểm chứng. | PowerPoint, nguồn nghiên cứu, ảnh thật, sketch/blueprint/render, nhật ký ngày tháng, ảnh chế tạo. |
-| Thương hiệu & Hồ sơ nhóm | Slogan chính xác, bảng màu, sáu hồ sơ, trạng thái phân công và avatar mẫu. | Logo gốc, ảnh thành viên, họ tên đầy đủ nếu cần, liên hệ được xác nhận. |
+| Nội dung & Nghiên cứu | Nghiên cứu, bộ thẻ/bộ lọc, moodboard, nhật ký, thư viện thiết kế, vật liệu, kế hoạch kiểm chứng. | Nguồn nghiên cứu, ảnh thiên nhiên thật, nhật ký ngày tháng, ảnh chế tạo. PowerPoint và năm ảnh thiết kế đã tích hợp. |
+| Thương hiệu & Hồ sơ nhóm | Slogan chính xác, bảng màu, sáu hồ sơ, trạng thái phân công và avatar mẫu. | Ảnh thành viên, họ tên đầy đủ nếu cần, liên hệ được xác nhận. Logo PNG đã tích hợp. |
 | Thẩm mỹ & UI/UX | Sáu trang responsive, điều hướng, modal, zoom/kéo, sơ đồ, reduced motion, font tự lưu trữ. | Thay minh họa bằng tư liệu hợp lệ khi có; kiểm tra lại ảnh/video mới. |
 | Thuyết trình & Bảo vệ | Trình diễn sáu bước, FAQ khoa học, trạng thái chưa kiểm chứng và giới hạn cơ chế. | Kết quả đo thực tế để trả lời câu hỏi định lượng. |
 
 ## Nội dung chưa thể hoàn thiện bằng tư liệu thật
 
-Logo; năm ảnh thiết kế; PowerPoint; nguồn AskNature/bài nghiên cứu; ảnh khảo sát và mô hình; video thiên nhiên có quyền sử dụng; ảnh nhóm và liên hệ; thời gian hoạt động/feedback; quy cách, đơn giá; kết quả thử nghiệm. Website vẫn dùng được với các mục này được ghi rõ trạng thái.
+Nguồn AskNature/bài nghiên cứu; ảnh khảo sát và mô hình; video thiên nhiên có quyền sử dụng; ảnh nhóm và liên hệ; thời gian hoạt động/feedback; quy cách, đơn giá; kết quả thử nghiệm. Website vẫn dùng được với các mục này được ghi rõ trạng thái.
 
 Mao dẫn là phương án cần xác nhận, chưa được lắp vào sơ đồ hiện tại. Không có tuyên bố giảm ngập thực tế, lưu lượng tưới, nước uống được hoặc hiệu suất lọc.
 
 ## Khả năng đã xây
 
-Nội dung HTML tĩnh; tương tác tăng cường bằng JavaScript. Trình diễn lưu trạng thái tại sessionStorage trong cùng tab; không có tài khoản hay đồng bộ máy chủ. Trình xem ảnh sẵn sàng cho bản gốc, được kiểm thử bằng fixture riêng; chưa thể xác minh độ đọc của bản vẽ chưa được gửi. Chưa đo tốc độ tải trên mạng di động thực tế.
+Nội dung HTML tĩnh; tương tác tăng cường bằng JavaScript. Trình diễn lưu trạng thái tại sessionStorage trong cùng tab; không có tài khoản hay đồng bộ máy chủ. Trình xem ảnh mở năm PNG gốc, có zoom/kéo/tải; thanh kéo so sánh phác thảo–concept và hotspot trên concept. Con trỏ, phản hồi hover/click, parallax nhẹ, reveal và thanh tiến độ cuộn có tùy chọn tắt chuyển động. Chưa đo tốc độ tải trên mạng di động thực tế.
 
-## Upload và triển khai
+## Triển khai
 
-Mã nguồn và workflow đã được push thành công lên `tommykhanhtrinh/rain-loop-website`, nhánh `main`. Remote đã trả về đúng SHA của commit được đẩy.
-
-Việc bật Pages và kiểm tra URL công khai chưa hoàn tất: truy cập `api.github.com` và `tommykhanhtrinh.github.io` bị proxy môi trường trả 403. Repository có workflow sẵn; trong GitHub chọn Settings → Pages → Source: GitHub Actions, rồi chạy workflow `Build and deploy RainLoop` nếu cần.
-
-Bản nháp môi trường cloud đã lưu install_script, start_skill và hai domain cần thêm. Lưu bản nháp không tự áp dụng mạng hay xuất bản website. Review/Save và Publish môi trường là thao tác riêng với bật GitHub Pages.
-
-Ảnh chụp giao diện được lưu trong `screenshots/` để xem bố cục desktop/mobile; đây là ảnh từ trình duyệt, không phải thiết kế giả lập.
+GitHub Pages dùng workflow `Build and deploy RainLoop` trên nhánh `main`. Mỗi cập nhật chạy build và Playwright trước khi deploy. URL dự kiến: https://tommykhanhtrinh.github.io/rain-loop-website/. Trạng thái deployment được kiểm tra riêng sau khi push.

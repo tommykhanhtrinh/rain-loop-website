@@ -8,7 +8,7 @@
 
 ## Logo, video và ảnh đại diện
 
-- `site.logo`: đường dẫn logo trong `public/` (ví dụ `assets/rainloop-logo.svg`) khi có tệp gốc.
+- `site.logo`: đường dẫn logo trong `public/` (ví dụ `assets/rainloop-logo.png`) khi có tệp gốc.
 - `site.heroPoster`: ảnh poster đã được phép sử dụng.
 - `site.heroVideo`: video thật đã tối ưu. Mặc định `null` để tránh request tài nguyên giả. Cập nhật nhãn nguồn và `docs/SOURCES.md` khi thêm.
 - `members[].image`: ảnh thật thành viên đã xác nhận; bỏ nhãn mẫu tự động khi trường này có giá trị.
@@ -18,9 +18,11 @@ Giữ tỷ lệ logo. Không ghi tên ảnh SVG minh họa như thể đó là �
 
 ## Bản vẽ và hotspot
 
-`drawings[]` có ID, tên, tên tệp gốc, loại và `src`. Đặt `src` vào đường dẫn ảnh hợp lệ để tự động có nút mở ảnh lớn. Viewer hỗ trợ zoom 100–400%, kéo bằng chuột/cảm ứng, phím mũi tên để di chuyển, ảnh trước/tiếp và Escape.
+`drawings[]` có ID, tên, tên tệp gốc, loại, `src` và `original`. Đặt `src` vào đường dẫn ảnh hợp lệ để tự động có nút mở ảnh lớn. Viewer hỗ trợ zoom 100–400%, kéo bằng chuột/cảm ứng, phím mũi tên để di chuyển, ảnh trước/tiếp và Escape.
 
-Hiện hotspot gắn với sơ đồ minh họa do website tạo. Sau khi nhận bản vẽ thật, đọc ảnh, xác định vị trí đúng, rồi mới thêm lớp hotspot tương ứng vào template. Không tái sử dụng tọa độ sơ đồ cho bản vẽ thật. Chỉ chuyển nhãn “Xem sơ đồ minh họa” thành “Xem trên bản vẽ” khi liên kết thực sự mở đúng bản gốc và bộ phận tương ứng.
+Hotspot hiện gắn đúng các bộ phận trên concept đã cung cấp. Khi đổi concept, cập nhật tọa độ phần trăm trong `hotspots[]` và đường hoạt ảnh trong template. Viewer đọc PNG gốc và có nút tải xuống. Nhật ký dùng `image` và `imageTitle` cho tư liệu theo giai đoạn.
+
+Thanh so sánh dùng phác thảo minh họa và concept, giữ tỷ lệ ảnh. Các điều khiển Chuyển động / Con trỏ áp dụng toàn website, ghi nhớ lựa chọn trong trình duyệt; reduced motion được ưu tiên. Con trỏ trang trí chỉ bật trên thiết bị có chuột, vẫn giữ con trỏ hệ thống.
 
 ## Nghiên cứu, nhật ký và giá
 

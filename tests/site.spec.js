@@ -45,7 +45,7 @@ test('research filters, flip, detail dialog and hotspot navigation',async({page}
  await page.keyboard.press('Escape');
  await expect(page.getByRole('button',{name:'Xem chi tiết'})).toBeFocused();
  await page.getByRole('button',{name:'Xem chi tiết'}).click();
- await page.locator('#detail-dialog').getByRole('link',{name:'Xem sơ đồ minh họa'}).click();
+ await page.locator('#detail-dialog').getByRole('link',{name:'Xem trên bản vẽ'}).click();
  await expect(page.locator('#hotspot-title')).toHaveText('Lớp lọc');
  await expect(page.locator('#hotspot-detail')).toBeFocused();
  await page.getByRole('button',{name:'05: Van điều tiết'}).click();
@@ -131,7 +131,7 @@ test('reduced motion, pause control, and static media fallback',async({page})=>{
  expect(await page.locator('.ring-one').evaluate(element=>getComputedStyle(element).animationName)).toBe('none');
  await expect(page.locator('.hero-art img')).toBeVisible();
  expect(await page.locator('.hero-art img').evaluate(img=>img.naturalWidth)).toBeGreaterThan(0);
- await expect(page.locator('video')).toHaveCount(0); // no fabricated or missing video is requested
+ await expect(page.locator('video')).toHaveCount(0); // No real video has been supplied yet.
 });
 
 test('image viewer zoom, pan, next image, Escape and focus return with explicit fixture',async({page})=>{
@@ -161,4 +161,39 @@ test('image viewer zoom, pan, next image, Escape and focus return with explicit 
 test('404 and style tile are reachable',async({page})=>{
  await page.goto('404.html');await expect(page.getByRole('link',{name:'Về Trang chủ'})).toBeVisible();
  await page.goto('nhan-dien.html');await expect(page.locator('.palette>div')).toHaveCount(6);
+});
+
+test('supplied drawings, original downloads, comparison and local Vietnamese fonts',async({page})=>{
+ await page.goto('thiet-ke.html');
+ await page.evaluate(()=>document.fonts.ready);
+ const typography=await page.locator('h1 em').evaluate(el=>({family:getComputedStyle(el).fontFamily,style:getComputedStyle(el).fontStyle,loaded:document.fonts.check('italic 400 24px "Be Vietnam Pro"','Thiết kế vùng rễ')}));
+ expect(typography.family).toContain('Be Vietnam Pro');expect(typography.style).toBe('italic');expect(typography.loaded).toBeTruthy();
+ await expect(page.locator('.drawing-preview')).toHaveCount(5);
+ await page.locator('[data-compare]').fill('75');
+ await expect(page.locator('[data-compare-output]')).toHaveText('75%');
+ expect(await page.locator('.comparison-stage').evaluate(el=>el.style.getPropertyValue('--compare'))).toBe('75%');
+ await page.locator('[data-gallery="blueprint"]').click();
+ await expect(page.locator('#gallery-title')).toHaveText('Blueprint & mặt cắt kỹ thuật');
+ await expect(page.locator('.gallery-download')).toHaveAttribute('href',/originals\/rainloop-blueprint.png$/);
+ await expect.poll(()=>page.locator('.gallery-viewport img').evaluate(i=>i.complete&&i.naturalWidth>0)).toBeTruthy();
+ await page.keyboard.press('Escape');
+ await expect(page.locator('[data-gallery="blueprint"]')).toBeFocused();
+ await page.goto('nhat-ky.html');
+ await expect(page.locator('.journal-evidence-image')).toHaveCount(2);
+ await page.goto('vat-lieu.html');await expect(page.locator('.bom-image')).toBeVisible();
+});
+
+test('pointer effects and page-wide pause respect input and reduced motion',async({page})=>{
+ await page.goto('thiet-ke.html');
+ const fine=await page.evaluate(()=>matchMedia('(hover: hover) and (pointer: fine)').matches);
+ await expect(page.locator('[data-cursor-control]')).toBeVisible({visible:fine});
+ if(fine){
+  await page.mouse.move(160,160);await expect(page.locator('.cursor-halo')).toHaveClass(/visible/);
+  await page.locator('[data-cursor-control]').click();await expect(page.locator('html')).not.toHaveClass(/cursor-effects/);
+  await page.locator('[data-cursor-control]').click();await expect(page.locator('html')).toHaveClass(/cursor-effects/);
+ }
+ await page.locator('[data-motion-control]').click();await expect(page.locator('html')).toHaveClass(/motion-paused/);
+ await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('[data-motion-control]')).toBeDisabled();
+ expect(await page.locator('.flow-path').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+ await expect(page.locator('html')).not.toHaveClass(/cursor-effects/);
 });
