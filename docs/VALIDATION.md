@@ -45,3 +45,15 @@ Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra
 - Build production thành công. Chromium Headless Shell 141: 50 kiểm thử đạt, 2 trường hợp menu điện thoại không áp dụng trên desktop/tablet được bỏ qua. Kiểm tra ở 1440 × 1000, 360 × 780, 430 × 932, 820 × 1180.
 - Quan sát ảnh chụp riêng ở 1440 × 1000 và 390 × 844; không lỗi JavaScript hay tràn ngang. Kiểm tra menu nổi, màu chữ, typography, phần cắt ảnh, bố cục nature section, hỗ trợ giảm chuyển động.
 - Tiêu đề nhấn màu hiện dùng font Be Vietnam Pro dáng thẳng theo mẫu mới; kiểm thử font tiếng Việt cập nhật theo quyết định này. Các font nghiêng tự lưu trữ vẫn sẵn cho những nội dung cần dùng.
+
+## Đối chiếu tiêu chí mới — 11/10/2026
+
+- `npm run build`: thành công (Vite 7.2.2).
+- `npm test`: 54 bài kiểm tra đạt, 2 bài menu mobile bỏ qua có chủ đích trên desktop/tablet; 56 ca trên viewport 1440×1000, 360×780, 430×932, 820×1180.
+- Thẻ: kiểm tra render và logo gốc ở mặt trước, đúng bốn đề mục, ảnh sinh học thật tải được và tên khoa học tham khảo; lightbox render đúng bản gốc, giữ ảnh AI ở nút riêng.
+- Hồ sơ: kiểm tra bốn section, tác giả/giấy phép; mở ảnh macro rồi đóng trả focus; mở sketch trong modal rồi zoom/đóng, trả focus về modal cha và về thẻ.
+- Journal có 4 quyết định; checklist có 5 nhóm minh chứng; demo sáu bước đã có Journal và trả vị trí bắt đầu khi thoát.
+- Các trang, link nội bộ/anchor, ảnh gốc tải xuống, font Việt, bộ lọc/layout, zoom/pan/swipe, hotspot, BOM tabs, menu/focus, cursor và giảm chuyển động đều được kiểm tra tự động.
+- QA hình ảnh: đã xem mặt trước/mặt sau thẻ desktop, thẻ và hồ sơ mobile, Moodboard, câu chuyện brand và SVG userflow. Hai mặt thẻ desktop cao 888px, scrollHeight bằng clientHeight, không cắt nội dung. Không có lỗi JavaScript hoặc tràn ngang trong kiểm tra các trang.
+- Trình duyệt kiểm thử: Chromium Headless Shell 141; chưa thực hiện kiểm tra trên thiết bị Safari/iOS thật.
+- Chưa xác nhận đầy đủ điểm nội dung: ảnh mô hình thật, dữ liệu thử, nguồn nghiên cứu riêng, khối lượng/báo giá và liên hệ vẫn chưa được cung cấp. Đây là giới hạn tư liệu, được đánh dấu trên website.

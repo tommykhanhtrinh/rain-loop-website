@@ -1,6 +1,37 @@
 import { test, expect } from '@playwright/test';
 const pages=['index','nghien-cuu','nhat-ky','thiet-ke','vat-lieu','doi-ngu'];
 
+test('rubric card uses product render and logo, four technical sections and nested sketch zoom',async({page})=>{
+ await page.goto('nghien-cuu.html');
+ const card=page.locator('#card-dat-ngap-nuoc');
+ await expect(card.locator('.card-front .card-art img')).toHaveAttribute('src','assets/rainloop-render-3d.webp');
+ await expect(card.locator('.card-brand img')).toHaveAttribute('src','assets/rainloop-logo.png');
+ await expect(card.locator('.card-species')).toContainText('Phragmites australis');
+ const product=card.locator('.card-front [data-gallery=render]');await product.click();
+ await expect(page.locator('#gallery-title')).toHaveText('Render tổng thể nhiều góc nhìn');
+ await expect(page.locator('.gallery-download')).toHaveAttribute('href',/originals\/rainloop-render-3d.png$/);
+ await page.keyboard.press('Escape');await expect(product).toBeFocused();
+ await card.locator('[data-flip]').first().click();
+ await expect(card.locator('.card-facts b')).toHaveText(['Nhận diện sinh vật','Đặc điểm sinh học','Cơ chế hoạt động','Ứng dụng & Định vị']);
+ await expect.poll(()=>card.locator('.card-macro').evaluate(i=>i.complete&&i.naturalWidth>0)).toBeTruthy();
+ await card.locator('[data-research-detail]').click();
+ await expect(page.locator('.technical-detail')).toHaveCount(4);
+ await expect(page.locator('#detail-dialog .photo-attribution')).toContainText('Kaira Liggett');
+ const macro=page.locator('.macro-preview');await macro.click();
+ await expect(page.locator('#gallery-dialog')).toBeVisible();
+ await expect(page.locator('.gallery-caption')).toContainText('Public Domain');
+ await page.keyboard.press('Escape');await expect(macro).toBeFocused();
+ await expect(page.locator('#detail-dialog')).toBeVisible();
+ const sketch=page.getByRole('button',{name:'Phóng lớn sketch gốc ↗'});await sketch.click();
+ await expect(page.locator('#gallery-title')).toHaveText('Sketch tay ban đầu');
+ await page.getByRole('button',{name:'Phóng lớn',exact:true}).click();
+ await expect(page.locator('#zoom-level')).toHaveText('150%');
+ await page.keyboard.press('Escape');await expect(sketch).toBeFocused();
+ await page.keyboard.press('Escape');await expect(card.locator('[data-research-detail]')).toBeFocused();
+ await page.goto('nhat-ky.html');await expect(page.locator('.decision-card')).toHaveCount(4);
+ await page.goto('doi-ngu.html');await expect(page.locator('.submission-grid article')).toHaveCount(5);
+});
+
 test('biomimicry grid preserves layout, flips accessibly and distinguishes capillary proposal',async({page})=>{
  await page.goto('nghien-cuu.html');
  await expect(page.locator('.research-card')).toHaveCount(2);
@@ -147,7 +178,7 @@ test('presentation crosses pages and restores original page and scroll position'
  await page.getByRole('button',{name:'Bước tiếp',exact:true}).click();
  await expect(page).toHaveURL(/nghien-cuu.html#nguyen-ly$/);
  await page.getByRole('button',{name:'Bước tiếp',exact:true}).click();
- await expect(page).toHaveURL(/#the-phong-sinh-hoc$/);
+ await expect(page).toHaveURL(/nhat-ky.html#quyet-dinh$/);
  await expect(page.locator('#presentation-progress')).toContainText('3 / 6');
  await page.getByRole('button',{name:'Bước tiếp',exact:true}).click();
  await expect(page).toHaveURL(/thiet-ke.html#co-che$/);

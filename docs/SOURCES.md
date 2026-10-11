@@ -13,13 +13,13 @@
 | `image(3).png` | Đã nhận | Render tổng thể; thư viện và bảng cảm hứng hình dáng. |
 | `image(4).png` | Đã nhận | Blueprint RL-001, mặt cắt và bảng vật liệu; thư viện và phần vật liệu. |
 | Ảnh khảo sát / mô hình vật lý / ảnh nhóm | Chưa nhận | Hiện thông báo hoặc avatar chữ mẫu; không dùng chân dung AI. |
-| Video thiên nhiên thật | Chưa nhận | Dùng nền SVG minh họa có nhãn. Mã hỗ trợ video có poster, tạm dừng, lazy load, giảm chuyển động và xử lý lỗi. |
+| Video thiên nhiên thật | Chưa nhận | Dùng ảnh nền AI có nhãn, giữ SVG làm phương án dự phòng. Mã hỗ trợ video có poster, tạm dừng, lazy load, giảm chuyển động và xử lý lỗi. |
 | AskNature / bài nghiên cứu | Chưa có liên kết | Chỉ trình bày mức khái quát từ brief; yêu cầu đối chiếu nguồn trước khi tăng mức khẳng định. |
 | `public/assets/wetland-illustration.svg` | Được tạo cho website | Minh họa vector viết bằng mã trong `scripts/art.mjs`. Không phải ảnh thật, ảnh AI, ảnh khảo sát hoặc bằng chứng nghiên cứu. |
 | Hotspot và hoạt ảnh trên concept | Được tạo cho website | Lớp tương tác phủ lên concept đã cung cấp, đặt theo bộ phận trong ảnh. Dòng chuyển động chỉ minh họa, không xác nhận lưu lượng hoặc hiệu suất. |
 | Be Vietnam Pro | Phụ thuộc có khóa phiên bản | Gói `@fontsource/be-vietnam-pro`; phân phối tự lưu trữ, không gọi Google Fonts. Giấy phép SIL OFL ở `FONT-LICENSE.txt`. |
 
-Bộ thẻ mới được tạo bằng ImageGen của ChatGPT theo yêu cầu trực tiếp của người dùng. Không dùng ảnh stock hoặc video từ URL chưa kiểm chứng. Không sử dụng ảnh AI làm bằng chứng khảo sát hoặc kết quả thử nghiệm.
+Bộ thẻ mới được tạo bằng ImageGen của ChatGPT theo yêu cầu trực tiếp của người dùng. Ảnh nghệ thuật thẻ không phải ảnh sinh học; ảnh macro tham khảo thật bổ sung bên dưới đã được kiểm tra tác giả và giấy phép. Không dùng video từ URL chưa kiểm chứng. Không sử dụng ảnh AI làm bằng chứng khảo sát hoặc kết quả thử nghiệm.
 
 Khi nhận tư liệu mới, ghi tác giả, nguồn gốc, quyền sử dụng, ngày tham khảo và vị trí sử dụng. Giữ tệp gốc ngoài bộ asset tối ưu; chỉ đưa tài liệu được phép công bố vào repository công khai. Chỉ thêm link thật đã kiểm tra. Dữ liệu thiếu giữ `null`, không thay bằng số 0.
 
@@ -45,3 +45,20 @@ Hai ảnh tham chiếu do người dùng gửi (Haven và Verdro) định hướ
 - Prompt đầy đủ và công cụ: `docs/REFERENCE-REDESIGN-PROMPTS.json`.
 
 Các ảnh trên phục vụ nhận diện thị giác, không phải ảnh khảo sát hay bằng chứng nghiên cứu. Website vẫn chưa có video thiên nhiên thật. Màu xanh rừng và xanh nước giữ vai trò nhận diện; xanh lá nhạt #D7EB8C và nền #FAFBF7 bổ sung cho giao diện mới. Logo, bản vẽ và thông tin khoa học của nhóm giữ nguyên.
+
+
+## Đối chiếu tiêu chí mới — 11/10/2026
+
+Đã đọc đầy đủ 9 trang PDF “Hoàn thiện Biomimicry Journal, Moodboard, Biomimicry Cards.pptx.pdf”. Trang 3–4 xác định bốn phần kỹ thuật, render + tên sinh vật + logo ở mặt trước, flip và lightbox phóng sketch. Trang 6 yêu cầu userflow trong slide thuyết trình, không trên website. Bài giảng buổi 2–4 và slide 7–8 PowerPoint nhóm được đối chiếu lại. Không công khai file bài giảng.
+
+| Asset thật | Tác giả / quyền sử dụng | Nguồn và cách dùng |
+| --- | --- | --- |
+| `phragmites-macro.webp` | Kaira Liggett, USGS Contractor; Public Domain | [USGS: Fluffy phragmites](https://www.usgs.gov/media/images/fluffy-phragmites). Thu nhỏ 1200×900 và đổi WebP. Ảnh cận cảnh sậy để nhận diện sinh vật tham khảo; ảnh quần thể xâm lấn ở Bắc Mỹ, không phải khảo sát nhóm hay đề xuất trồng. |
+| `celery-macro.webp` | Кузнецов Денис Аркадьевич / KDA-TRUE-TECH / Denis Kuznetsov; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [Wikimedia Commons: Макро срез сельдерея](https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D0%BA%D1%80%D0%BE_%D1%81%D1%80%D0%B5%D0%B7_%D1%81%D0%B5%D0%BB%D1%8C%D0%B4%D0%B5%D1%80%D0%B5%D1%8F.jpg). Thu nhỏ 1280×851 và đổi WebP; bản phái sinh ảnh này tiếp tục theo CC BY-SA 4.0. Dùng như tham chiếu mô thực vật, không gán thành cảm hứng mới của nhóm. |
+| `gravel-texture.webp` | Poxnar; [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | [Gravel road (close-up)](https://commons.wikimedia.org/wiki/File:Gravel_road_(close-up).jpg). Thu nhỏ 1200×677 và đổi WebP. Chỉ tham khảo texture; không khẳng định kích thước hoặc nguồn vật liệu mua của nhóm. |
+
+Tên khoa học cần tây đối chiếu [Kew Plants of the World Online](https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:838067-1): *Apium graveolens* L. Mao dẫn là cơ chế vật lý; vận chuyển nước trong cây không chỉ do mao dẫn. Loài sậy và cần tây được ghi rõ là sinh vật tham khảo bổ sung, không thay nguồn cảm hứng nhóm đã chọn ở cấp hệ sinh thái/quy trình.
+
+Mặt trước thẻ dùng render sản phẩm nhóm cung cấp và logo gốc; tên sinh vật đi kèm nhãn “Tham khảo”. Bốn phần kỹ thuật và ảnh thật ở mặt sau/hồ sơ. Các minh họa nghệ thuật AI giữ trong lightbox và mục mở rộng. Ghi tác giả, nguồn, giấy phép và chỉnh sửa ngay trong hồ sơ ảnh; thông tin tiếp tục hiển thị khi phóng lớn.
+
+`docs/rainloop-userflow.svg` là sơ đồ vector viết bằng mã, mô tả điều hướng thật; dùng trong slide, không đưa vào public assets. Giấy phép ảnh CC BY-SA chỉ áp dụng cho ảnh và bản phái sinh của ảnh, không tự thay giấy phép toàn bộ mã website.

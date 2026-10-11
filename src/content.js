@@ -64,6 +64,33 @@ export const research = [{
   ]
 }];
 
+// Biological references added to document the required identity/macro component.
+// They illustrate the mechanisms, not an unprovided species survey by the group.
+Object.assign(research[0], {
+  scientificName: 'Phragmites australis', referenceName: 'Sậy',
+  referenceNote: 'Loài tham khảo để nhận diện thực vật đất ngập nước; nhóm nghiên cứu ở cấp hệ sinh thái. Ảnh USGS chụp quần thể xâm lấn tại Bắc Mỹ, không phải khảo sát sân trường hoặc đề xuất trồng loài này.',
+  macro: { src: 'assets/phragmites-macro.webp', title: 'Ảnh cận cảnh sậy — Phragmites australis', credit: 'Kaira Liggett / USGS · Public Domain', source: 'https://www.usgs.gov/media/images/fluffy-phragmites', license: 'https://www.usgs.gov/media/images/fluffy-phragmites' },
+  facts: [
+    ['Nhận diện sinh vật', 'Sậy — Phragmites australis, loài tham khảo trong đất ngập nước; cảm hứng chính vẫn là hệ sinh thái.'],
+    ['Đặc điểm sinh học', 'Nền đất, nước và thảm thực vật phối hợp lưu giữ nước và cản dòng chảy.'],
+    ['Cơ chế hoạt động', 'Dòng chậm tạo điều kiện cho cặn lắng; không đồng nhất lắng với mọi quá trình lọc sinh học.'],
+    ['Ứng dụng & Định vị', 'Hộp lọc và khoang trữ tạm; xem lớp lọc 02 trên concept. Đây là lọc sơ bộ, chưa kiểm chứng.']
+  ]
+});
+research[0].sourceLinks.push({label:'USGS · Ảnh cận cảnh và nhận diện sậy',url:research[0].macro.source});
+Object.assign(research[1], {
+  scientificName: 'Apium graveolens L.', referenceName: 'Cần tây',
+  referenceNote: 'Cần tây dùng làm tham chiếu mô thực vật cho bài học vận chuyển nước; không bổ sung thành một cảm hứng đã được nhóm khảo sát. Mao dẫn là cơ chế vật lý. Vận chuyển nước trong cây còn liên quan thoát hơi nước và các yếu tố khác.',
+  macro: { src: 'assets/celery-macro.webp', title: 'Ảnh macro mặt cắt cuống lá cần tây', credit: 'KDA-TRUE-TECH / Denis Kuznetsov · CC BY-SA 4.0 · Thu nhỏ và chuyển WebP', source: 'https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D0%BA%D1%80%D0%BE_%D1%81%D1%80%D0%B5%D0%B7_%D1%81%D0%B5%D0%BB%D1%8C%D0%B4%D0%B5%D1%80%D0%B5%D1%8F.jpg', license: 'https://creativecommons.org/licenses/by-sa/4.0/' },
+  facts: [
+    ['Nhận diện sinh vật', 'Cần tây — Apium graveolens L., tham chiếu mô dẫn; mao dẫn không phải tên loài.'],
+    ['Đặc điểm sinh học', 'Mô dẫn thực vật gợi mở cách dẫn nước; phương án RainLoop dùng khe nhỏ giữa các sợi thấm.'],
+    ['Cơ chế hoạt động', 'Bám dính, liên kết giữa phân tử nước và sức căng bề mặt; chiều cao nâng nước có giới hạn.'],
+    ['Ứng dụng & Định vị', 'Dây dẫn từ khoang chứa tới vùng rễ: dự kiến, chưa có trong RL-001. Cần sketch chi tiết và thử.']
+  ]
+});
+research[1].sourceLinks.push({label:'Kew · Tên khoa học cần tây',url:'https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:838067-1'}, {label:'Ảnh macro cần tây · Wikimedia Commons',url:research[1].macro.source});
+
 export const timeline = [
   { title: 'Bắt đầu từ một cơn mưa', stage: 'Quan sát vấn đề', status: 'Đang thực hiện', text: 'Nhóm nêu hiện tượng nước mưa đọng hoặc thoát chậm ở sân trường, cùng nhu cầu chăm sóc cây.', learned: 'Cần phân biệt quan sát ban đầu với số liệu đo tại hiện trường.', next: 'Bổ sung ảnh vị trí, thời điểm quan sát và thời gian nước rút.', evidence: 'Mô tả trong yêu cầu dự án; chưa có ảnh khảo sát.' },
   { title: 'Đặt đúng câu hỏi', stage: 'Xác định nhu cầu', status: 'Đang thực hiện', text: 'Làm thế nào để thu và giữ tạm nước mưa ở sân trường, rồi đưa nước tới vùng rễ theo cách có thể vệ sinh và kiểm chứng?', learned: 'Một giải pháp cần được đánh giá đồng thời ở nơi thu nước và nơi sử dụng nước.', next: 'Xác nhận vị trí dự kiến, nhu cầu tưới và điều kiện sân trường.', evidence: 'Câu hỏi thiết kế đề xuất từ mô tả dự án.' },
@@ -99,7 +126,10 @@ export const materials = [
   { name: 'Cát thô & vải lọc', quantity: null, unit: null, spec: null, price: null, note: 'Quy cách và chiều dày cần đối chiếu blueprint.' },
   { name: 'Ống nối & khớp nối', quantity: null, unit: 'bộ', spec: 'PVC Ø21; đầu nối xuyên vách và gioăng', price: null, note: 'Kết nối thấp giữa các hộp; cần kiểm tra kín nước.' },
   { name: 'Van & hố kỹ thuật', quantity: 1, unit: 'bộ', spec: 'Van DN15; hố kỹ thuật có nắp', price: null, note: 'Một van trước bồn cây theo mô tả.' },
-  { name: 'Ống tưới đục lỗ', quantity: null, unit: 'm', spec: 'PVC Ø21, đục lỗ', price: null, note: 'Bố trí dưới vùng rễ; cần phương án thoát nước dư.' }
+  { name: 'Ống tưới đục lỗ', quantity: null, unit: 'm', spec: 'PVC Ø21, đục lỗ', price: null, note: 'Bố trí dưới vùng rễ; cần phương án thoát nước dư.' },
+  { name: 'Bồn cây & tấm đế', quantity: null, unit: 'bộ', spec: 'Quy cách cần đối chiếu RL-001', price: null, note: 'Có trong kế hoạch vật liệu slide 8; xác nhận kích thước và cao độ.' },
+  { name: 'Vật liệu làm kín', quantity: null, unit: 'bộ', spec: 'Silicone phù hợp PP/PVC và gioăng', price: null, note: 'Có trong slide 8; xác nhận khả năng bám dính và độ kín qua thử nghiệm.' },
+  { name: 'Dây / vật liệu mao dẫn', quantity: null, unit: 'm', spec: 'Chưa chọn vật liệu; mục mở rộng', price: null, note: 'Chỉ đưa vào khi nhóm chốt phương án, bổ sung bản vẽ và kiểm chứng; chưa có trong BOM RL-001.' }
 ];
 
 // Real deployment quantities and prices are independent from the learning model.
@@ -113,7 +143,7 @@ export const testPlan = [
   ['Đến đúng nơi cần', 'Nước đến vùng rễ', 'Ghi độ ẩm ở các vị trí và độ sâu trước/sau tưới.', 'Độ ẩm, vị trí đo, thời gian và lượng nước cấp.'],
   ['Khi bồn đầy', 'Thoát nước dư', 'Tăng lượng cấp có kiểm soát, theo dõi đường thoát và hiện tượng dâng ngược.', 'Mực nước lớn nhất, thời gian rút và vị trí tràn.'],
   ['Dễ chăm sóc lâu dài', 'Vệ sinh & bảo trì', 'Tiếp cận nắp, lớp lọc và van; thử tháo, vệ sinh và lắp lại.', 'Thời gian, thao tác khó, chi tiết cần thay.'],
-  ['Phương án mở rộng', 'Mao dẫn — cần xác nhận', 'Chỉ thực hiện khi nhóm chốt vật liệu và bổ sung phương án mao dẫn.', 'Chiều cao nâng nước, lượng nước chuyển và thời gian.']
+  ['Phương án mở rộng', 'Mao dẫn — cần xác nhận', 'Sau khi chốt vật liệu và bổ sung sketch: thử các mẫu dây cùng chiều dài, bề rộng và độ chênh cao; dùng cùng mực nước ban đầu và một mẫu không có dây làm đối chứng. Đề xuất ghi tại 0, 5, 15, 30 và 60 phút; lặp lại ít nhất 3 lần, kiểm soát bay hơi.', 'Chiều cao mặt ướt trên dây, khối lượng nước chuyển, thời gian và độ chênh cao. Chốt mức cấp nước cần đạt theo nhu cầu vùng rễ trước khi thử; chưa có ngưỡng hoặc kết quả đo.']
 ];
 
 export const members = [
@@ -127,9 +157,24 @@ export const members = [
 
 export const faq = [
   ['RainLoop học điều gì từ tự nhiên?', 'Dự án lấy cảm hứng từ đất ngập nước ở cấp độ hệ sinh thái: giữ nước, làm chậm dòng chảy và kết nối các chức năng. Các hộp lọc không tái tạo đầy đủ quá trình sinh học của đất ngập nước.'],
+  ['Mao dẫn đã hoạt động trong RainLoop chưa?', 'Chưa có chi tiết dây mao dẫn trong RL-001 và chưa thử nghiệm. Đây là hướng được nhóm chọn: dùng vật liệu thấm nối khoang chứa tới vùng rễ. Cần đo chiều cao nâng nước và lượng nước chuyển với mẫu đối chứng. Nước vận chuyển trong cây còn liên quan thoát hơi nước, không chỉ mao dẫn.'],
   ['Khác gì với thoát nước thông thường?', 'Phương án hướng tới giữ tạm và sử dụng một phần nước cho vùng rễ, bên cạnh việc thu nước. Hiệu quả thực tế chưa được thử nghiệm.'],
   ['Vì sao van nằm trước bồn cây?', 'Theo mô tả hiện tại, van đặt giữa hộp cuối và bồn cây để tiếp cận điều tiết, trong hố kỹ thuật có nắp. Cần xác nhận cao độ và điều kiện dòng chảy.'],
   ['Điều gì xảy ra khi bồn đầy?', 'Thiết kế cần đường thoát nước dư. Vị trí, cao độ và khả năng thoát phải được xác nhận qua bản vẽ và thử nghiệm tình huống đầy.'],
   ['Hệ thống được bảo trì thế nào?', 'Cần tiếp cận nắp thu, lớp lọc và van để lấy rác, vệ sinh hoặc thay vật liệu. Tần suất bảo trì chưa được xác định.'],
   ['Nước sau lọc có uống được không?', 'Không có cơ sở để kết luận nước uống được. RainLoop mới đề xuất lọc sơ bộ và cấp nước vùng rễ; chưa có kết quả kiểm tra chất lượng nước.']
+];
+
+export const decisions = [
+ { title:'Chọn đất ngập nước', status:'Được chọn', basis:'PowerPoint KTTX lần 2; concept và RL-001.', reason:'Chuyển hóa chức năng thu, lọc sơ bộ và lưu giữ nước thành các khoang liên kết.', href:'nghien-cuu.html#card-dat-ngap-nuoc' },
+ { title:'Giữ hướng mao dẫn', status:'Được chọn về ý tưởng', basis:'Xác nhận của nhóm trong trao đổi.', reason:'Dẫn nước bằng vật liệu thấm tới vùng rễ; chờ chi tiết sketch, vật liệu và kiểm chứng.', href:'nghien-cuu.html#card-mao-dan' },
+ { title:'Hạ hộp xuống dưới mặt đất', status:'Đã thể hiện trên bản vẽ', basis:'Concept và RL-001, Version 1.', reason:'Nắp ngang mặt đất, tiếp cận lớp lọc và giảm phần chiếm mặt sân.', href:'thiet-ke.html#ho-so-ban-ve' },
+ { title:'Ống thẳng, một van trước bồn cây', status:'Đã thể hiện trên bản vẽ', basis:'Concept, mặt cắt RL-001 và kế hoạch prototype.', reason:'Thống nhất phương án liên kết và vị trí tiếp cận điều tiết; hiệu quả dòng chảy chưa được đo.', href:'thiet-ke.html#van' }
+];
+export const submissionGaps = [
+ ['Nghiên cứu','Link AskNature và bài nghiên cứu riêng của nhóm; các cảm hứng cũ và lý do loại.'],
+ ['Bản vẽ','Sketch vị trí dây mao dẫn; đối chiếu tỷ lệ, kích thước giữa BOM và mặt cắt.'],
+ ['Vật liệu','Khối lượng còn thiếu, nguồn báo giá và ngày khảo sát cho từng phạm vi.'],
+ ['Mô hình','Ảnh/video mô hình thật, nhật ký chế tạo và dữ liệu thử nghiệm.'],
+ ['Hồ sơ nhóm','Ảnh thật, họ tên đầy đủ và kênh liên hệ được nhóm xác nhận.']
 ];

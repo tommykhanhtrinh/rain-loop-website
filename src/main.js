@@ -6,6 +6,7 @@ import '@fontsource/be-vietnam-pro/400-italic.css';
 import '@fontsource/be-vietnam-pro/500-italic.css';
 import './style.css';
 import './reference-theme.css';
+import './criteria.css';
 import { research, hotspots, drawings } from './content.js';
 
 const $ = (selector, root=document) => root.querySelector(selector);
@@ -128,7 +129,12 @@ $$('.research-card').forEach(card=>card.addEventListener('keydown',event=>{
 $$('[data-research-detail]').forEach(button=>button.addEventListener('click',()=>{
  const item=research.find(r=>r.id===button.dataset.researchDetail);if(!item)return;
  const destination=item.hotspotId?`<a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem trên bản vẽ ↗</a>`:'<a class="text-link" href="vat-lieu.html#kiem-chung">Xem kế hoạch kiểm chứng ↗</a>';
- $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span><p class="detail-implementation">${escapeHTML(item.implementation)}</p><button class="detail-art" data-card-lightbox="${item.id}" aria-label="Phóng lớn hình thẻ ${escapeHTML(item.name)}"><img src="${item.image}" alt="${escapeHTML(item.imageAlt)}"/><span>Minh họa AI · Phóng lớn ↗</span></button>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}<ul class="research-sources">${(item.sourceLinks||[]).map(source=>`<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.label)} ↗</a></li>`).join('')}</ul></div>${destination}`;
+ $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC / 4 PHẦN KỸ THUẬT</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span><p class="detail-implementation">${escapeHTML(item.implementation)}</p>
+ <section class="technical-detail"><p class="eyebrow">01 / NHẬN DIỆN SINH VẬT</p><h3>${escapeHTML(item.referenceName)} · <i>${escapeHTML(item.scientificName)}</i></h3><button class="macro-preview" data-gallery-src="${item.macro.src}" data-gallery-title="${escapeHTML(item.macro.title)}" data-gallery-caption="${escapeHTML(item.macro.credit)} · Nguồn: ${escapeHTML(item.macro.source)} · Giấy phép: ${escapeHTML(item.macro.license)}" aria-label="Phóng lớn ${escapeHTML(item.macro.title)}"><img src="${item.macro.src}" alt="${escapeHTML(item.macro.title)}"/><span>Ảnh sinh học thật · Phóng lớn ↗</span></button><p class="photo-attribution">${escapeHTML(item.macro.credit)} · <a href="${item.macro.source}" target="_blank" rel="noopener noreferrer">Nguồn ảnh ↗</a> · <a href="${item.macro.license}" target="_blank" rel="noopener noreferrer">Giấy phép ↗</a></p><p>${escapeHTML(item.identity)}</p><p class="note">${escapeHTML(item.referenceNote)}</p></section>
+ <section class="technical-detail"><p class="eyebrow">02 / ĐẶC ĐIỂM SINH HỌC</p><h3>Cấu trúc & chức năng</h3><p>${escapeHTML(item.structure)}</p><p>${escapeHTML(item.function)}</p></section>
+ <section class="technical-detail"><p class="eyebrow">03 / CƠ CHẾ HOẠT ĐỘNG</p><h3>Từ khoa học đến nguyên lý thiết kế</h3><p>${escapeHTML(item.mechanism)}</p><p><b>Nguyên lý chuyển hóa:</b> ${escapeHTML(item.principle)}</p></section>
+ <section class="technical-detail"><p class="eyebrow">04 / ỨNG DỤNG & ĐỊNH VỊ</p><h3>Đối chiếu với RainLoop</h3><p>${escapeHTML(item.application)}</p><div class="detail-drawing-actions"><button class="button light small" data-gallery="sketch">Phóng lớn sketch gốc ↗</button><button class="button light small" data-gallery="concept">Phóng lớn concept ↗</button></div>${destination}<p>${escapeHTML(item.decision)}</p>${!item.hotspotId?'<p class="note">Vị trí dự kiến: từ khoang chứa đến vùng rễ. Chưa có đường dây mao dẫn trên sketch/RL-001; nhóm cần bổ sung chi tiết trước khi xác nhận định vị kỹ thuật.</p>':''}</section>
+ <div class="note">${escapeHTML(item.source)}<ul class="research-sources">${(item.sourceLinks||[]).map(source=>`<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.label)} ↗</a></li>`).join('')}</ul></div><details class="art-supplement"><summary>Minh họa nghệ thuật của thẻ</summary><button class="detail-art" data-card-lightbox="${item.id}" aria-label="Phóng lớn hình thẻ ${escapeHTML(item.name)}"><img src="${item.image}" alt="${escapeHTML(item.imageAlt)}"/><span>Minh họa AI · Phóng lớn ↗</span></button></details>`;
  openDialog($('#detail-dialog'),button);
 }));
 
@@ -207,7 +213,7 @@ document.addEventListener('click',event=>{
   galleryItems=research.filter(item=>visibleIds.includes(item.id)||item.id===button.dataset.cardLightbox).map(item=>({id:item.id,src:item.image,original:item.original,title:item.name,caption:`Minh họa AI · ${item.implementation}. ${item.summary}`}));
   galleryIndex=galleryItems.findIndex(item=>item.id===button.dataset.cardLightbox);
  }else if(button.dataset.gallerySrc){
-  galleryItems=$$('[data-gallery-src]').map((b,i)=>({id:`supplied-${i}`,src:b.dataset.gallerySrc,title:b.dataset.galleryTitle||'Ảnh thiết kế'}));
+  galleryItems=$$('[data-gallery-src]').map((b,i)=>({id:`supplied-${i}`,src:b.dataset.gallerySrc,title:b.dataset.galleryTitle||'Ảnh thiết kế',caption:b.dataset.galleryCaption||'Ảnh tham khảo; xem nguồn và tác giả trong hồ sơ chi tiết.'}));
   galleryIndex=$$('[data-gallery-src]').indexOf(button);
  }else galleryIndex=galleryItems.findIndex(d=>d.id===button.dataset.gallery);
  if(galleryIndex<0)return;
@@ -247,7 +253,7 @@ window.addEventListener('resize',()=>{if(gallery.open)paintImage();});
 const steps=[
  {url:'index.html#van-de',label:'Vấn đề'},
  {url:'nghien-cuu.html#nguyen-ly',label:'Nghiên cứu'},
- {url:'nghien-cuu.html#the-phong-sinh-hoc',label:'Thẻ phỏng sinh học'},
+ {url:'nhat-ky.html#quyet-dinh',label:'Journal'},
  {url:'thiet-ke.html#co-che',label:'Thiết kế'},
  {url:'vat-lieu.html#kiem-chung',label:'Kiểm chứng'},
  {url:'doi-ngu.html',label:'Đội ngũ'}
