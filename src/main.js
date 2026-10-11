@@ -92,19 +92,42 @@ $$('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
  $$('.research-card').forEach(card=>{card.hidden=selected!=='all'&&card.dataset.status!==selected;if(!card.hidden)count++;});
  $('.filter-empty').hidden=count!==0;
  $('.research-context').hidden=count===0;
+ $('[data-card-count]').textContent=`${count} / ${research.length} thẻ`;
 }));
+const cardGrid=$('.research-cards');
+function setCardLayout(layout){
+ if(!cardGrid)return;
+ cardGrid.dataset.layout=layout==='compact'?'compact':'gallery';
+ $$('[data-card-layout]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.cardLayout===cardGrid.dataset.layout)));
+ storage.set('rainloop-card-layout',cardGrid.dataset.layout);
+}
+if(cardGrid)setCardLayout(storage.get('rainloop-card-layout'));
+$$('[data-card-layout]').forEach(button=>button.addEventListener('click',()=>setCardLayout(button.dataset.cardLayout)));
+function flipCard(card,showBack){
+ const front=$('.card-front',card),back=$('.card-back',card);
+ card.classList.toggle('is-flipped',showBack);
+ front.inert=showBack;back.inert=!showBack;
+ front.setAttribute('aria-hidden',String(showBack));back.setAttribute('aria-hidden',String(!showBack));
+ $('[data-flip]',front).setAttribute('aria-expanded',String(showBack));
+ (showBack?$('[data-research-detail]',back):$('[data-flip]',front)).focus({preventScroll:true});
+}
 $$('[data-flip]').forEach(button=>button.addEventListener('click',()=>{
  const card=button.closest('.research-card');
- const front=$('.card-front',card),back=$('.card-back',card);
- const showBack=!front.hidden;
- front.hidden=showBack;back.hidden=!showBack;
- $('[data-flip]',front).setAttribute('aria-expanded',String(showBack));
- const target=showBack?$('[data-research-detail]',back):$('[data-flip]',front);
- target.focus({preventScroll:true});
+ flipCard(card,!card.classList.contains('is-flipped'));
+}));
+$$('.card-front').forEach(front=>front.addEventListener('click',event=>{
+ if(event.target.closest('button,a')||getSelection()?.toString())return;
+ flipCard(front.closest('.research-card'),true);
+}));
+$$('.research-card').forEach(card=>card.addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&card.classList.contains('is-flipped')&&!$('dialog[open]')){
+  event.preventDefault();event.stopPropagation();flipCard(card,false);
+ }
 }));
 $$('[data-research-detail]').forEach(button=>button.addEventListener('click',()=>{
  const item=research.find(r=>r.id===button.dataset.researchDetail);if(!item)return;
- $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}</div><a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem trên bản vẽ ↗</a>`;
+ const destination=item.hotspotId?`<a class="text-link" href="thiet-ke.html#${item.hotspotId}">Xem trên bản vẽ ↗</a>`:'<a class="text-link" href="vat-lieu.html#kiem-chung">Xem kế hoạch kiểm chứng ↗</a>';
+ $('.detail-content').innerHTML=`<p class="eyebrow">HỒ SƠ PHỎNG SINH HỌC</p><h2 id="detail-title">${escapeHTML(item.name)}</h2><span class="tag">${escapeHTML(item.statusLabel)} · ${escapeHTML(item.category)}</span><p class="detail-implementation">${escapeHTML(item.implementation)}</p><button class="detail-art" data-card-lightbox="${item.id}" aria-label="Phóng lớn hình thẻ ${escapeHTML(item.name)}"><img src="${item.image}" alt="${escapeHTML(item.imageAlt)}"/><span>Minh họa AI · Phóng lớn ↗</span></button>${[['Nhận diện',item.identity],['Cấu trúc & đặc điểm',item.structure],['Chức năng',item.function],['Cơ chế',item.mechanism],['Nguyên lý thiết kế',item.principle],['Ứng dụng trong RainLoop',item.application],['Quyết định',item.decision]].map(([title,text])=>`<h3>${title}</h3><p>${escapeHTML(text)}</p>`).join('')}<div class="note">${escapeHTML(item.source)}<ul class="research-sources">${(item.sourceLinks||[]).map(source=>`<li><a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.label)} ↗</a></li>`).join('')}</ul></div>${destination}`;
  openDialog($('#detail-dialog'),button);
 }));
 
@@ -159,34 +182,64 @@ function paintImage(){
  $('[data-zoom-out]').disabled=zoom<=1;$('[data-zoom-in]').disabled=zoom>=4;
 }
 function showImage(index){
+ if(!galleryItems.length)return;
  galleryIndex=(index+galleryItems.length)%galleryItems.length;
  const item=galleryItems[galleryIndex];
+ gallery.classList.add('gallery-loading');
+ $('.gallery-load-status').hidden=false;
+ $('.gallery-load-status').textContent='Đang tải ảnh…';
  galleryImage.src=item.original||item.src;galleryImage.alt=item.title;$('#gallery-title').textContent=item.title;
  $('.gallery-download').href=item.original||item.src;
+ $('.gallery-caption').textContent=item.caption||'Tư liệu thiết kế do nhóm cung cấp.';
+ $('.gallery-position').textContent=`${galleryIndex+1} / ${galleryItems.length}`;
+ const restoreThumbnailFocus=$('.gallery-thumbnails').contains(document.activeElement);
+ $('.gallery-thumbnails').innerHTML=galleryItems.map((image,i)=>`<button data-gallery-index="${i}" aria-label="Xem ảnh ${escapeHTML(image.title)}" aria-pressed="${i===galleryIndex}"><img src="${image.src}" alt="" loading="lazy"/></button>`).join('');
+ if(restoreThumbnailFocus)$(`[data-gallery-index="${galleryIndex}"]`).focus({preventScroll:true});
  zoom=1;panX=0;panY=0;paintImage();
  $('[data-gallery-prev]').disabled=galleryItems.length<2;$('[data-gallery-next]').disabled=galleryItems.length<2;
 }
 document.addEventListener('click',event=>{
- const button=event.target.closest('[data-gallery], [data-gallery-src]');if(!button)return;
+ const button=event.target.closest('[data-gallery], [data-gallery-src], [data-card-lightbox]');if(!button)return;
  galleryItems=drawings.filter(d=>d.src).map(d=>({id:d.id,src:d.src,title:d.title,original:d.original}));
- if(button.dataset.gallerySrc){
+ if(button.dataset.cardLightbox){
+  const visibleIds=$$('.research-card:not([hidden])').map(card=>card.dataset.cardId);
+  galleryItems=research.filter(item=>visibleIds.includes(item.id)||item.id===button.dataset.cardLightbox).map(item=>({id:item.id,src:item.image,original:item.original,title:item.name,caption:`Minh họa AI · ${item.implementation}. ${item.summary}`}));
+  galleryIndex=galleryItems.findIndex(item=>item.id===button.dataset.cardLightbox);
+ }else if(button.dataset.gallerySrc){
   galleryItems=$$('[data-gallery-src]').map((b,i)=>({id:`supplied-${i}`,src:b.dataset.gallerySrc,title:b.dataset.galleryTitle||'Ảnh thiết kế'}));
   galleryIndex=$$('[data-gallery-src]').indexOf(button);
  }else galleryIndex=galleryItems.findIndex(d=>d.id===button.dataset.gallery);
  if(galleryIndex<0)return;
  openDialog(gallery,button);showImage(galleryIndex);
 });
-galleryImage.addEventListener('load',paintImage);
+galleryImage.addEventListener('load',()=>{gallery.classList.remove('gallery-loading');$('.gallery-load-status').hidden=true;paintImage();});
+galleryImage.addEventListener('error',()=>{gallery.classList.remove('gallery-loading');$('.gallery-load-status').hidden=false;$('.gallery-load-status').textContent='Không tải được ảnh. Hãy chọn ảnh khác hoặc mở lại thư viện.';});
+$('.gallery-thumbnails').addEventListener('click',event=>{
+ const button=event.target.closest('[data-gallery-index]');if(button)showImage(Number(button.dataset.galleryIndex));
+});
 $('[data-zoom-in]').addEventListener('click',()=>{zoom=Math.min(4,zoom+.5);paintImage();});
 $('[data-zoom-out]').addEventListener('click',()=>{zoom=Math.max(1,zoom-.5);paintImage();});
 $('[data-gallery-prev]').addEventListener('click',()=>showImage(galleryIndex-1));
 $('[data-gallery-next]').addEventListener('click',()=>showImage(galleryIndex+1));
-viewport.addEventListener('pointerdown',event=>{pointer={id:event.pointerId,x:event.clientX,y:event.clientY};viewport.setPointerCapture(event.pointerId);});
+viewport.addEventListener('pointerdown',event=>{pointer={id:event.pointerId,x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,type:event.pointerType};if(event.isTrusted)viewport.setPointerCapture(event.pointerId);});
 viewport.addEventListener('pointermove',event=>{if(!pointer||pointer.id!==event.pointerId)return;panX+=event.clientX-pointer.x;panY+=event.clientY-pointer.y;pointer.x=event.clientX;pointer.y=event.clientY;paintImage();});
-for(const name of ['pointerup','pointercancel','lostpointercapture'])viewport.addEventListener(name,()=>{pointer=null;});
+viewport.addEventListener('pointerup',event=>{
+ if(pointer&&pointer.type==='touch'&&zoom===1&&galleryItems.length>1){
+  const dx=event.clientX-pointer.startX,dy=event.clientY-pointer.startY;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2)showImage(galleryIndex+(dx<0?1:-1));
+ }
+ pointer=null;
+});
+for(const name of ['pointercancel','lostpointercapture'])viewport.addEventListener(name,()=>{pointer=null;});
 viewport.addEventListener('keydown',event=>{
+ if(zoom===1&&(event.key==='ArrowLeft'||event.key==='ArrowRight'))return;
  const delta={ArrowLeft:[35,0],ArrowRight:[-35,0],ArrowUp:[0,35],ArrowDown:[0,-35]}[event.key];
  if(delta){event.preventDefault();panX+=delta[0];panY+=delta[1];paintImage();}
+});
+gallery.addEventListener('keydown',event=>{
+ if(event.defaultPrevented||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+ event.preventDefault();
+ if(event.key==='Home')showImage(0);else if(event.key==='End')showImage(galleryItems.length-1);else showImage(galleryIndex+(event.key==='ArrowRight'?1:-1));
 });
 window.addEventListener('resize',()=>{if(gallery.open)paintImage();});
 
@@ -281,7 +334,7 @@ document.addEventListener('pointermove',event=>{
  if(event.pointerType==='touch'||!document.documentElement.classList.contains('cursor-effects'))return;
  pointerX=event.clientX;pointerY=event.clientY;pointerPresent=true;
  const target=event.target.closest('a,button,summary,input[type=range]');
- const inspecting=!!event.target.closest('[data-gallery],[data-gallery-src]');
+ const inspecting=!!event.target.closest('[data-gallery],[data-gallery-src],[data-card-lightbox]');
  halo.classList.toggle('interactive-target',!!target);
  $('span',halo).textContent=inspecting?'Xem':'';
  if(!cursorFrame)cursorFrame=requestAnimationFrame(()=>{
@@ -297,7 +350,7 @@ document.addEventListener('pointerdown',event=>{
  ripple.style.left=`${event.clientX}px`;ripple.style.top=`${event.clientY}px`;document.body.append(ripple);
  ripple.addEventListener('animationend',()=>ripple.remove(),{once:true});setTimeout(()=>ripple.remove(),900);
 });
-$$('.drawing-card,.explore-card,.member').forEach(el=>{
+$$('.drawing-card,.explore-card,.member,.research-card').forEach(el=>{
  el.dataset.tilt='';
  el.addEventListener('pointermove',event=>{
   if(!finePointer.matches||!effectsEnabled()||event.pointerType==='touch')return;

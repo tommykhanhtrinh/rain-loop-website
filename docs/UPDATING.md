@@ -38,3 +38,9 @@ Thanh so sánh dùng phác thảo minh họa và concept, giữ tỷ lệ ảnh.
 Bắt đầu bằng nút Trình diễn ở trang chủ, header desktop hoặc menu điện thoại. Dùng nút Trước/Tiếp; Escape hoặc Thoát để trở về trang và vị trí xuất phát. Chế độ không tự chuyển bước. Tab/Shift+Tab và Enter/Space dùng cho điều khiển; Escape ưu tiên đóng cửa sổ đang mở.
 
 Nội dung không được đặt hoàn toàn trong ảnh. Giữ alt text, thứ tự heading, nhãn điều khiển, focus nhìn thấy và chế độ giảm chuyển động khi cập nhật.
+
+## Thẻ phỏng sinh học
+
+Mỗi `research[]` có ảnh `image`, PNG `original`, mô tả ảnh `imageAlt`, trạng thái chọn, trạng thái triển khai `implementation`, bốn mục `facts` và nguồn `sourceLinks`. Cập nhật bốn mục từ dữ liệu nhóm đã kiểm chứng. Chỉ gắn `hotspotId` khi bộ phận được thể hiện trong concept; nếu chưa có thì liên kết tới kế hoạch kiểm chứng. Các ý tưởng cũ chưa xác nhận không tự thêm vào nhóm Đã loại.
+
+Thẻ lật 3D bằng nút hoặc chạm mặt trước; mặt ẩn có `inert` và `aria-hidden`. Esc từ mặt sau lật về trước. Lưới lớn/gọn và bộ lọc giữ tương tác độc lập; bố cục ghi nhớ trong sessionStorage. Lightbox ảnh thẻ có ảnh trước/tiếp, thumbnail, zoom/kéo, vuốt ngang ở mức zoom 100%, phím mũi tên, Home/End, tải PNG và trả focus khi đóng. Phần chữ không nằm trong ảnh AI.

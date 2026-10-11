@@ -19,7 +19,16 @@ export const pages = [
 
 export const research = [{
   id: 'dat-ngap-nuoc', name: 'Đất ngập nước', category: 'Hệ sinh thái', status: 'selected',
-  statusLabel: 'Được chọn', eyebrow: 'Cảm hứng chính', image: 'assets/rainloop-sketch-illustration.webp',
+  statusLabel: 'Được chọn', eyebrow: 'Cảm hứng chính', image: 'assets/rainloop-card-wetland.webp',
+  original: 'assets/originals/rainloop-card-wetland.png',
+  imageAlt: 'Minh họa AI: đất ngập nước với cây, vùng rễ và vòng nước trên nền xanh rừng',
+  accent: 'forest', implementation: 'Đã chuyển hóa vào concept',
+  facts: [
+    ['Cấu trúc & cơ chế', 'Vùng trũng, nền đất và thảm thực vật giữ nước, cản dòng; dòng chậm tạo điều kiện cho cặn lắng.'],
+    ['Chức năng', 'Giữ tạm nước và làm chậm dòng chảy trong hệ sinh thái.'],
+    ['Cấp độ phỏng sinh học', 'Hệ sinh thái: học cách kết nối nhiều chức năng trong một hệ thống.'],
+    ['Ứng dụng RainLoop', 'Ba hộp ngầm: thu nước, lọc sơ bộ, trữ tạm; van và ống tưới đưa nước tới vùng rễ.']
+  ],
   summary: 'Học cách giữ nước, làm chậm dòng chảy và kết nối nước với vùng rễ.',
   identity: 'Một hệ sinh thái có điều kiện ngập nước thường xuyên hoặc theo mùa; không phải một loài sinh vật.',
   structure: 'Nước, nền đất hoặc trầm tích và thảm thực vật tương tác trong cùng một hệ thống.',
@@ -27,15 +36,38 @@ export const research = [{
   mechanism: 'Dòng chảy chậm có thể tạo điều kiện cho hạt lơ lửng lắng xuống. Tương tác với nền đất, rễ và vi sinh vật là các quá trình khác nhau, cần tài liệu chuyên môn để mô tả định lượng.',
   principle: 'Tách việc thu, giữ tạm và phân phối nước thành các chức năng liên kết; dùng lớp vật liệu để lọc sơ bộ trước khi cấp tới vùng rễ.',
   application: 'Các hộp ngầm có lớp lọc, khoang nước và đường ống tới bồn cây. Đây là chuyển hóa ý tưởng, không tái tạo đầy đủ một hệ sinh thái đất ngập nước.',
-  decision: 'Được chọn làm cảm hứng chính theo mô tả dự án do nhóm cung cấp. Danh sách cảm hứng khác và biên bản lựa chọn đang chờ tư liệu.',
-  source: 'Nguồn dự án: PowerPoint UPDATE KTTX lần 2 và bản vẽ RL-001 do nhóm cung cấp. Liên kết AskNature và bài nghiên cứu đang chờ bổ sung.',
+  decision: 'Được chọn làm cảm hứng chính; đã chuyển hóa vào concept và RL-001. Các cảm hứng cũ khác còn cần đối chiếu tài liệu nhóm.',
+  source: 'Tư liệu nhóm: PowerPoint UPDATE KTTX lần 2 và RL-001. Bổ sung nguồn nền tảng EPA để đối chiếu; không thay cho liên kết AskNature và bài nghiên cứu riêng của nhóm.',
+  sourceLinks: [{ label: 'EPA · Chức năng và giá trị đất ngập nước', url: 'https://www.epa.gov/sites/default/files/2021-01/documents/functions_values_of_wetlands.pdf' }],
   drawingId: 'concept', hotspotId: 'lop-loc'
+}, {
+  id: 'mao-dan', name: 'Mao dẫn', category: 'Cơ chế / Quy trình', status: 'selected',
+  statusLabel: 'Được chọn', eyebrow: 'Hướng phát triển', image: 'assets/rainloop-card-capillary.webp',
+  original: 'assets/originals/rainloop-card-capillary.png',
+  imageAlt: 'Minh họa AI: sợi vật liệu thấm nước, giọt nước và vùng rễ trên nền xanh nước',
+  accent: 'water', implementation: 'Chưa tích hợp vào blueprint',
+  summary: 'Gợi mở cách dẫn nước từ bồn chứa tới vùng rễ bằng vật liệu thấm nước.',
+  identity: 'Mao dẫn là cơ chế vật lý; không phải tên một loài. Thẻ dùng sợi thấm nước để minh họa hướng ứng dụng đã được nhóm chọn.',
+  structure: 'Khe nhỏ trong vật liệu xốp hoặc giữa các sợi tạo đường tiếp xúc cho nước.',
+  function: 'Di chuyển nước trong các khe nhỏ, có thể ngược chiều trọng lực trong giới hạn nhất định.',
+  mechanism: 'Bám dính, liên kết giữa các phân tử nước và sức căng bề mặt cùng tham gia. Độ cao và lượng nước chuyển phụ thuộc vật liệu, kích thước khe và trọng lực.',
+  principle: 'Chọn vật liệu thấm nước liên tục, nối vùng chứa nước với nơi cần giữ ẩm; kiểm tra chiều cao nâng nước và lượng nước chuyển trước khi ứng dụng.',
+  application: 'Dự kiến dùng dây hoặc vật liệu dẫn nước từ khoang chứa tới vùng rễ. Chưa có chi tiết này trong concept hoặc bản RL-001, chưa có dữ liệu thử nghiệm.',
+  decision: 'Được chọn về định hướng theo xác nhận của nhóm trong trao đổi. Cần bổ sung vật liệu, chi tiết bản vẽ và thử nghiệm trước khi ghi là đã triển khai.',
+  source: 'Định hướng ứng dụng theo xác nhận của nhóm; cơ chế nền tảng đối chiếu USGS. Liên kết AskNature và bài nghiên cứu của nhóm vẫn cần bổ sung.',
+  sourceLinks: [{ label: 'USGS · Mao dẫn và nước', url: 'https://www.usgs.gov/water-science-school/science/capillary-action-and-water' }],
+  facts: [
+    ['Cấu trúc & cơ chế', 'Khe nhỏ giữa các sợi thấm nước; bám dính, liên kết nước và sức căng bề mặt cùng tham gia.'],
+    ['Chức năng', 'Dẫn nước trong vật liệu xốp, có giới hạn chiều cao và lượng nước chuyển.'],
+    ['Cấp độ phỏng sinh học', 'Quy trình: học nguyên lý vận chuyển nước; không bắt chước hình dáng sinh vật.'],
+    ['Ứng dụng RainLoop', 'Dây hoặc vật liệu nối bồn chứa với vùng rễ; đang chờ bản vẽ chi tiết và thử nghiệm.']
+  ]
 }];
 
 export const timeline = [
   { title: 'Bắt đầu từ một cơn mưa', stage: 'Quan sát vấn đề', status: 'Đang thực hiện', text: 'Nhóm nêu hiện tượng nước mưa đọng hoặc thoát chậm ở sân trường, cùng nhu cầu chăm sóc cây.', learned: 'Cần phân biệt quan sát ban đầu với số liệu đo tại hiện trường.', next: 'Bổ sung ảnh vị trí, thời điểm quan sát và thời gian nước rút.', evidence: 'Mô tả trong yêu cầu dự án; chưa có ảnh khảo sát.' },
   { title: 'Đặt đúng câu hỏi', stage: 'Xác định nhu cầu', status: 'Đang thực hiện', text: 'Làm thế nào để thu và giữ tạm nước mưa ở sân trường, rồi đưa nước tới vùng rễ theo cách có thể vệ sinh và kiểm chứng?', learned: 'Một giải pháp cần được đánh giá đồng thời ở nơi thu nước và nơi sử dụng nước.', next: 'Xác nhận vị trí dự kiến, nhu cầu tưới và điều kiện sân trường.', evidence: 'Câu hỏi thiết kế đề xuất từ mô tả dự án.' },
-  { title: 'Lắng nghe cách tự nhiên vận hành', stage: 'Nghiên cứu sinh học', status: 'Đang thực hiện', text: 'Đất ngập nước là nguồn cảm hứng chính được nêu trong thiết kế hiện tại.', learned: 'Lắng, lọc, thấm và quá trình sinh học có cơ chế khác nhau.', next: 'Bổ sung tài liệu gốc, nguồn ảnh và các thẻ nghiên cứu thực tế.', evidence: 'PowerPoint KTTX lần 2: nguồn cảm hứng đất ngập nước; nguồn khoa học đang chờ bổ sung.' },
+  { title: 'Lắng nghe cách tự nhiên vận hành', stage: 'Nghiên cứu sinh học', status: 'Đang thực hiện', text: 'Đất ngập nước là nguồn cảm hứng chính được nêu trong thiết kế hiện tại.', learned: 'Lắng, lọc, thấm và quá trình sinh học có cơ chế khác nhau.', next: 'Bổ sung tài liệu gốc, nguồn ảnh và các thẻ nghiên cứu thực tế.', evidence: 'PowerPoint KTTX lần 2: nguồn cảm hứng đất ngập nước; link AskNature và bài nghiên cứu của nhóm đang chờ bổ sung.' },
   { title: 'Từ hệ sinh thái đến nguyên lý', stage: 'Chọn nguyên lý thiết kế', status: 'Đang thực hiện', text: 'Tổ chức chuỗi chức năng thu nước, lọc sơ bộ, trữ tạm và cấp nước vùng rễ.', learned: 'Mô phỏng chức năng cần đi kèm điều kiện vận hành cụ thể.', next: 'Đối chiếu nguyên lý với bản vẽ và cao độ dự kiến.', evidence: 'Mô tả phương án trong yêu cầu dự án.' },
   { title: 'Ba hộp, một hướng phát triển', stage: 'Phác thảo & so sánh', image: 'assets/rainloop-hand-sketch.webp', imageTitle: 'Sketch tay ban đầu', status: 'Đã có bản vẽ', text: 'Phương án được mô tả có ba hộp ngầm, ống nối thấp và một van trước bồn cây.', learned: 'Sketch tay ban đầu đã được phát triển thành ba hộp ngầm, ống thẳng và hố kỹ thuật tiếp cận van.', next: 'Đối chiếu các góc nhìn, vị trí van và kích thước trước khi chế tạo.', evidence: 'Sketch tay, phác thảo minh họa, concept, bản RL-001 và render tổng thể đã được cung cấp.' },
   { title: 'Mỗi thay đổi cần một lý do', stage: 'Phản hồi & chỉnh sửa', status: 'Đã có bản vẽ', image: 'assets/rainloop-blueprint.webp', imageTitle: 'Blueprint RL-001 — Version 1', text: 'Bản RL-001 thể hiện hộp nằm dưới đất, nắp ngang mặt đất, ống nối thẳng thấp và một van trước bồn cây.', learned: 'Mặt bằng, mặt cắt và phối cảnh cần thống nhất về cấu tạo và cao độ.', next: 'Đối chiếu các thông số ghi trên bản vẽ và bổ sung phản hồi có nguồn khi nhận được.', evidence: 'Bản RL-001, Version 1; thiết kế: Khánh Trình, kiểm tra: Phúc Nguyên.' },

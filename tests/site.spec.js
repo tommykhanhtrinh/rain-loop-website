@@ -1,6 +1,64 @@
 import { test, expect } from '@playwright/test';
 const pages=['index','nghien-cuu','nhat-ky','thiet-ke','vat-lieu','doi-ngu'];
 
+test('biomimicry grid preserves layout, flips accessibly and distinguishes capillary proposal',async({page})=>{
+ await page.goto('nghien-cuu.html');
+ await expect(page.locator('.research-card')).toHaveCount(2);
+ await expect(page.locator('[data-card-count]')).toHaveText('2 / 2 thẻ');
+ for(const card of await page.locator('.research-card').all())await expect(card.locator('.card-facts li')).toHaveCount(4);
+ await page.getByRole('button',{name:'Lưới gọn',exact:true}).click();
+ await expect(page.locator('.research-cards')).toHaveAttribute('data-layout','compact');
+ await page.reload();await expect(page.getByRole('button',{name:'Lưới gọn',exact:true})).toHaveAttribute('aria-pressed','true');
+ const capillary=page.locator('#card-mao-dan');
+ await capillary.locator('[data-flip]').first().click();
+ await expect(capillary).toHaveClass(/is-flipped/);
+ expect(await capillary.locator('.card-front').evaluate(e=>e.inert)).toBeTruthy();
+ expect(await capillary.locator('.card-back').evaluate(e=>e.inert)).toBeFalsy();
+ await expect(capillary.locator('[data-research-detail]')).toBeFocused();
+ await expect(capillary.locator('.card-implementation')).toHaveText('Chưa tích hợp vào blueprint');
+ await capillary.locator('[data-research-detail]').click();
+ await expect(page.locator('#detail-title')).toHaveText('Mao dẫn');
+ await expect(page.locator('#detail-dialog a[href*=usgs]')).toBeVisible();
+ await expect(page.locator('#detail-dialog a[href*=undefined]')).toHaveCount(0);
+ await page.keyboard.press('Escape');await page.keyboard.press('Escape');
+ await expect(capillary).not.toHaveClass(/is-flipped/);
+ await expect(capillary.locator('[data-flip]').first()).toBeFocused();
+ await page.getByRole('button',{name:'Đang cân nhắc',exact:true}).click();
+ await expect(page.locator('[data-card-count]')).toHaveText('0 / 2 thẻ');
+ await page.getByRole('button',{name:'Tất cả',exact:true}).click();
+ await expect(page.locator('[data-card-count]')).toHaveText('2 / 2 thẻ');
+});
+
+test('card lightbox opens artwork, navigates, zooms, handles touch and returns focus',async({page})=>{
+ await page.goto('nghien-cuu.html');
+ const trigger=page.locator('#card-dat-ngap-nuoc .card-front [data-card-lightbox]');
+ await trigger.click();
+ await expect(page.locator('#gallery-title')).toHaveText('Đất ngập nước');
+ await expect(page.locator('.gallery-caption')).toContainText('Minh họa AI');
+ await expect(page.locator('.gallery-position')).toHaveText('1 / 2');
+ await expect.poll(()=>page.locator('.gallery-viewport img').evaluate(i=>i.complete&&i.naturalWidth>0)).toBeTruthy();
+ await expect(page.locator('.gallery-thumbnails button')).toHaveCount(2);
+ await page.keyboard.press('ArrowRight');
+ await expect(page.locator('#gallery-title')).toHaveText('Mao dẫn');
+ await expect(page.locator('.gallery-download')).toHaveAttribute('href',/originals\/rainloop-card-capillary.png$/);
+ await page.locator('[data-gallery-index="0"]').click();
+ await expect(page.locator('#gallery-title')).toHaveText('Đất ngập nước');
+ await expect(page.locator('[data-gallery-index="0"]')).toBeFocused();
+ await page.keyboard.press('ArrowRight');
+ await expect(page.locator('[data-gallery-index="1"]')).toBeFocused();
+ await page.getByRole('button',{name:'Phóng lớn',exact:true}).click();
+ await expect(page.locator('#zoom-level')).toHaveText('150%');
+ await page.getByRole('button',{name:'Thu nhỏ',exact:true}).click();
+ const viewport=page.locator('.gallery-viewport');
+ await viewport.evaluate(el=>{
+  el.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerId:123,pointerType:'touch',clientX:220,clientY:220}));
+  el.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:123,pointerType:'touch',clientX:100,clientY:220}));
+ });
+ await expect(page.locator('#gallery-title')).toHaveText('Đất ngập nước');
+ await page.keyboard.press('Escape');await expect(trigger).toBeFocused();
+ await expect(page.locator('#gallery-dialog')).not.toBeVisible();
+});
+
 test('six pages reload, assets load, no horizontal overflow or script errors',async({page})=>{
  const errors=[];page.on('pageerror',error=>errors.push(error.message));
  const failures=[];page.on('response',response=>{if(response.status()>=400)failures.push(response.url());});
@@ -35,16 +93,16 @@ test('research filters, flip, detail dialog and hotspot navigation',async({page}
  await page.goto('nghien-cuu.html');
  await page.getByRole('button',{name:'Đã loại',exact:true}).click();
  await expect(page.locator('.filter-empty')).toBeVisible();
- await expect(page.locator('.research-card')).toBeHidden();
+ expect(await page.locator('.research-card').evaluateAll(cards=>cards.every(card=>card.hidden))).toBeTruthy();
  await page.getByRole('button',{name:'Được chọn',exact:true}).click();
- await page.getByRole('button',{name:'Lật thẻ'}).click();
- await expect(page.locator('.card-front')).toBeHidden();
- await page.getByRole('button',{name:'Xem chi tiết'}).click();
+ await page.getByRole('button',{name:'Lật thẻ',exact:true}).first().click();
+ await expect(page.locator('.card-front').first()).toHaveAttribute('aria-hidden','true');
+ await page.getByRole('button',{name:'Xem chi tiết'}).first().click();
  await expect(page.locator('#detail-dialog')).toBeVisible();
  await expect(page.locator('#detail-title')).toHaveText('Đất ngập nước');
  await page.keyboard.press('Escape');
- await expect(page.getByRole('button',{name:'Xem chi tiết'})).toBeFocused();
- await page.getByRole('button',{name:'Xem chi tiết'}).click();
+ await expect(page.getByRole('button',{name:'Xem chi tiết'}).first()).toBeFocused();
+ await page.getByRole('button',{name:'Xem chi tiết'}).first().click();
  await page.locator('#detail-dialog').getByRole('link',{name:'Xem trên bản vẽ'}).click();
  await expect(page.locator('#hotspot-title')).toHaveText('Lớp lọc');
  await expect(page.locator('#hotspot-detail')).toBeFocused();
@@ -136,7 +194,7 @@ test('reduced motion, pause control, and static media fallback',async({page})=>{
 
 test('image viewer zoom, pan, next image, Escape and focus return with explicit fixture',async({page})=>{
  await page.goto('thiet-ke.html');
- // Reuse an actual site SVG as a TEST fixture only; production has no supplied drawing images.
+ // Separate fixture exercises the generic viewer independently of the supplied drawings.
  await page.evaluate(()=>{
   const holder=document.createElement('div');holder.id='fixture-controls';
   for(let i=0;i<2;i++){

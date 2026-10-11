@@ -18,7 +18,7 @@ Kiểm tra trên máy cloud của dự án, bằng Node.js 24.19.0 và Chromium 
 - Con trỏ động, tắt/bật chuyển động toàn trang, ghi nhớ lựa chọn và chế độ giảm chuyển động trên desktop/mobile.
 - Đã quan sát ảnh chụp trình duyệt desktop/mobile và kiểm tra cuộn qua các phần.
 
-Bộ kiểm thử sau cập nhật gồm 44 trường hợp: 42 đạt, 2 trường hợp menu mobile không áp dụng trên desktop/tablet được bỏ qua. Production build thành công. Quan sát thêm giao diện 1440×1000 và 390×844 bằng ảnh chụp trình duyệt.
+Bộ kiểm thử sau cập nhật gồm 52 trường hợp: 50 đạt, 2 trường hợp menu mobile không áp dụng trên desktop/tablet được bỏ qua. Production build thành công. Quan sát thêm giao diện 1440×1000 và 390×844 bằng ảnh chụp trình duyệt.
 
 ## Chưa kiểm chứng
 
@@ -30,3 +30,10 @@ Bộ kiểm thử sau cập nhật gồm 44 trường hợp: 42 đạt, 2 trư�
 - GitHub Pages công khai: cấu hình workflow có sẵn; trạng thái công khai chỉ được xác nhận sau khi truy cập và kiểm tra được deployment.
 
 Không có kết quả thử nghiệm mô hình vật lý. Các phép kiểm tra trên đây là kiểm tra website.
+
+## Kiểm tra bộ thẻ mới
+
+- Hai thẻ và bốn mục thông tin riêng cho mỗi thẻ; lật thật bằng CSS 3D, trạng thái `inert`/`aria-hidden` và focus đúng; Esc quay lại mặt trước.
+- Lưới lớn/gọn ghi nhớ sau reload, bộ lọc và số thẻ hiển thị hoạt động; phần mao dẫn không tạo link hotspot giả.
+- Lightbox ảnh AI: tải PNG gốc, ảnh trước/tiếp, thumbnail giữ focus, zoom, vuốt qua pointer events, đóng và trả focus. Kiểm thử mô phỏng không thay kiểm tra cảm ứng trên thiết bị vật lý.
+- Quan sát ảnh chụp ở 1440×1000 và 390×844; không tràn ngang. Lightbox trên điện thoại bố trí nút Đóng ở góc trên, ảnh theo tỷ lệ gốc.

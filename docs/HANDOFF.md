@@ -38,3 +38,7 @@ Nội dung HTML tĩnh; tương tác tăng cường bằng JavaScript. Trình di�
 ## Triển khai
 
 GitHub Pages dùng workflow `Build and deploy RainLoop` trên nhánh `main`. Mỗi cập nhật chạy build và Playwright trước khi deploy. URL dự kiến: https://tommykhanhtrinh.github.io/rain-loop-website/. Trạng thái deployment được kiểm tra riêng sau khi push.
+
+## Cập nhật bộ thẻ
+
+Hai ảnh nghệ thuật đất ngập nước và mao dẫn tạo bằng ChatGPT, dùng làm mặt trước; nội dung bốn phần nằm ở mặt sau và chi tiết. Lưới lớn/gọn, lật 3D, lightbox có thumbnail/zoom/vuốt/tải ảnh đều dùng cùng cơ chế giảm chuyển động. Giữ nguyên concept và bản vẽ kỹ thuật. Prompt tái sử dụng ở `docs/CARD-ART-PROMPTS.json`; nguồn và đường dẫn ảnh ở `docs/SOURCES.md`.
