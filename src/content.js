@@ -121,20 +121,21 @@ export const drawings = [
 ];
 
 export const materials = [
-  { name: 'Hộp thu & trữ nước', quantity: 3, unit: 'hộp', spec: 'Nhựa PP tái sử dụng', price: null, note: 'Theo PowerPoint KTTX lần 2. Kích thước BOM và mặt cắt RL-001 cần đối chiếu trước khi mua.' },
-  { name: 'Nắp đục lỗ', quantity: 3, unit: 'cái', spec: 'Nhựa PP; lỗ Ø5 mm', price: null, note: 'Thu nước bề mặt, có thể tiếp cận vệ sinh.' },
-  { name: 'Sỏi lớn, sỏi nhỏ', quantity: null, unit: 'kg', spec: null, price: null, note: 'Vật liệu lớp lọc sơ bộ.' },
-  { name: 'Cát thô & vải lọc', quantity: null, unit: null, spec: null, price: null, note: 'Quy cách và chiều dày cần đối chiếu blueprint.' },
-  { name: 'Ống nối & khớp nối', quantity: null, unit: 'bộ', spec: 'PVC Ø21; đầu nối xuyên vách và gioăng', price: null, note: 'Kết nối thấp giữa các hộp; cần kiểm tra kín nước.' },
-  { name: 'Van & hố kỹ thuật', quantity: 1, unit: 'bộ', spec: 'Van DN15; hố kỹ thuật có nắp', price: null, note: 'Một van trước bồn cây theo mô tả.' },
-  { name: 'Ống tưới đục lỗ', quantity: null, unit: 'm', spec: 'PVC Ø21, đục lỗ', price: null, note: 'Bố trí dưới vùng rễ; cần phương án thoát nước dư.' },
-  { name: 'Bồn cây & tấm đế', quantity: null, unit: 'bộ', spec: 'Quy cách cần đối chiếu RL-001', price: null, note: 'Có trong kế hoạch vật liệu slide 8; xác nhận kích thước và cao độ.' },
-  { name: 'Vật liệu làm kín', quantity: null, unit: 'bộ', spec: 'Silicone phù hợp PP/PVC và gioăng', price: null, note: 'Có trong slide 8; xác nhận khả năng bám dính và độ kín qua thử nghiệm.' },
-  { name: 'Dây / vật liệu mao dẫn', quantity: null, unit: 'm', spec: 'Chưa chọn vật liệu; mục mở rộng', price: null, note: 'Chỉ đưa vào khi nhóm chốt phương án, bổ sung bản vẽ và kiểm chứng; chưa có trong BOM RL-001.' }
+  { name: "Hộp thu & trữ nước", quantity: 3, unit: "hộp", price: 65000, spec: "Hộp PP tái sử dụng 15–20 lít", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Nắp đục lỗ", quantity: 3, unit: "cái", price: 15000, spec: "Nắp PP gia công lỗ Ø5 mm", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Sỏi lớn, sỏi nhỏ", quantity: 4, unit: "kg", price: 8000, spec: "Sỏi lọc rửa sạch", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Cát thô & vải lọc", quantity: 1, unit: "bộ", price: 45000, spec: "Cát thô và vải lọc", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Ống nối & khớp nối", quantity: 1, unit: "bộ", price: 65000, spec: "PVC Ø21 và khớp nối xuyên vách", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Van & hố kỹ thuật", quantity: 1, unit: "bộ", price: 65000, spec: "Van DN15 và hộp kỹ thuật", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Ống tưới đục lỗ", quantity: 1.5, unit: "m", price: 20000, spec: "PVC Ø21 đục lỗ", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Bồn cây & tấm đế", quantity: 1, unit: "bộ", price: 95000, spec: "Bồn trồng và tấm đế", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Vật liệu làm kín", quantity: 1, unit: "bộ", price: 48000, spec: "Keo làm kín và gioăng", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." },
+  { name: "Dây / vật liệu mao dẫn", quantity: 1, unit: "m", price: 12000, spec: "Dây thấm, phương án tùy chọn", estimated: true, source: "Dự toán tham khảo; chưa xác minh báo giá trực tuyến", note: "Số lượng dự kiến cho một hệ thống ba hộp; đối chiếu bản vẽ trước khi mua." }
 ];
 
-// Real deployment quantities and prices are independent from the learning model.
-export const realMaterials = materials.map(item => ({ ...item, quantity: null, price: null }));
+// Both scopes use the reference budget supplied by the team.
+export const realMaterials = materials.map(item => ({ ...item }));
+
 
 export const testPlan = [
   ['Độ kín của hệ thống', 'Rò rỉ hộp và khớp nối', 'Nạp nước trong điều kiện có kiểm soát, đánh dấu mực ban đầu, quan sát các mối ghép.', 'Mức nước thay đổi, vị trí rò, thời gian quan sát.'],
