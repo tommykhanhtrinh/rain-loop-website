@@ -148,12 +148,12 @@ export const testPlan = [
 ];
 
 export const members = [
-  { name: 'Khánh Trình', initials: 'KT', role: 'Quản lý dự án & Trưởng nhóm phát triển website', task: 'Điều phối tiến độ, tổng hợp nội dung và phụ trách trải nghiệm website.', planned: false, image: null },
-  { name: 'Anh Kiệt', initials: 'AK', role: 'Phát triển website', task: 'Xây dựng giao diện, tương tác và hỗ trợ kiểm tra các trang.', planned: false, image: null },
-  { name: 'Phúc Nguyên', initials: 'PN', role: 'Phụ trách chế tạo mô hình & Nguyên vật liệu', task: 'Chuẩn bị danh mục vật liệu và tổ chức công việc chế tạo.', planned: false, image: null },
-  { name: 'Đức Tùng', initials: 'ĐT', role: 'Chế tạo mô hình', task: 'Dự kiến hỗ trợ gia công các bộ phận theo bản vẽ được xác nhận.', planned: true, image: null },
-  { name: 'Gia Huy', initials: 'GH', role: 'Lắp ráp & Thử nghiệm', task: 'Dự kiến lắp ráp hệ thống và ghi nhận các phép thử.', planned: true, image: null },
-  { name: 'Hiển Minh', initials: 'HM', role: 'Hỗ trợ lắp ráp', task: 'Dự kiến hỗ trợ lắp ráp và chuẩn bị khu vực kiểm chứng.', planned: true, image: null }
+  { name: 'Khánh Trình', initials: 'KT', role: 'Quản lý dự án & Trưởng nhóm phát triển website', task: 'Điều phối tiến độ, tổng hợp nội dung và phụ trách trải nghiệm website.', planned: false, image: 'assets/team/khanh-trinh.webp' },
+  { name: 'Anh Kiệt', initials: 'AK', role: 'Phát triển website', task: 'Xây dựng giao diện, tương tác và hỗ trợ kiểm tra các trang.', planned: false, image: 'assets/team/anh-kiet.webp' },
+  { name: 'Phúc Nguyên', initials: 'PN', role: 'Phụ trách chế tạo mô hình & Nguyên vật liệu', task: 'Chuẩn bị danh mục vật liệu và tổ chức công việc chế tạo.', planned: false, image: 'assets/team/phuc-nguyen.webp' },
+  { name: 'Đức Tùng', initials: 'ĐT', role: 'Chế tạo mô hình', task: 'Dự kiến hỗ trợ gia công các bộ phận theo bản vẽ được xác nhận.', planned: true, image: 'assets/team/duc-tung.webp' },
+  { name: 'Gia Huy', initials: 'GH', role: 'Lắp ráp & Thử nghiệm', task: 'Dự kiến lắp ráp hệ thống và ghi nhận các phép thử.', planned: true, image: 'assets/team/gia-huy.webp' },
+  { name: 'Hiển Minh', initials: 'HM', role: 'Hỗ trợ lắp ráp', task: 'Dự kiến hỗ trợ lắp ráp và chuẩn bị khu vực kiểm chứng.', planned: true, image: 'assets/team/hien-minh.webp' }
 ];
 
 export const faq = [
