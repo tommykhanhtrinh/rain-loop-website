@@ -150,3 +150,11 @@ em{font-family:inherit;font-style:italic;letter-spacing:inherit;font-weight:400}
 .table-total p{color:#d6f78b;font-size:clamp(2.5rem,5vw,4.4rem);font-weight:700;line-height:1.15;letter-spacing:-.045em;margin:0;font-variant-numeric:tabular-nums}
 .table-total>span{max-width:420px;color:#eef7ed;font-size:.9rem;line-height:1.8}
 @media(max-width:640px){.table-total{flex-direction:column;align-items:flex-start;padding:26px 24px;gap:18px}.table-total p{font-size:2.6rem}.table-total>span{font-size:.8rem}}
+
+/* High-contrast budget spotlight; overrides decorative panel gradients. */
+#panel-model .table-total,#panel-real .table-total{background:#ffd166!important;color:#123f35!important;border:3px solid #123f35!important;border-radius:10px 32px 10px 32px!important;box-shadow:8px 8px 0 #123f35!important;padding:34px 40px!important;margin:26px 8px 12px 0!important;isolation:isolate}
+#panel-model .table-total::before,#panel-real .table-total::before,#panel-model .table-total::after,#panel-real .table-total::after{display:none!important}
+#panel-model .table-total .eyebrow,#panel-real .table-total .eyebrow{display:inline-block;background:#123f35;color:#fff!important;padding:7px 14px;border-radius:6px;letter-spacing:.12em;font-weight:700;margin-bottom:16px}
+#panel-model .table-total p,#panel-real .table-total p{color:#123f35!important;font-size:clamp(2.8rem,6vw,5rem)!important;font-weight:800!important;line-height:1.12;text-shadow:none!important;margin:0}
+#panel-model .table-total>span,#panel-real .table-total>span{color:#123f35!important;border-left:2px solid #123f3540;padding-left:24px;max-width:430px;font-weight:500}
+@media(max-width:640px){#panel-model .table-total,#panel-real .table-total{padding:26px 22px!important;box-shadow:5px 5px 0 #123f35!important}#panel-model .table-total p,#panel-real .table-total p{font-size:clamp(2.3rem,10vw,3.4rem)!important}#panel-model .table-total>span,#panel-real .table-total>span{border-left:0;border-top:2px solid #123f3540;padding:16px 0 0}}
